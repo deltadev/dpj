@@ -45,12 +45,12 @@ struct NucleotidesToBits : std::binary_function<unsigned, char, unsigned>
     }
 };
 
-unsigned nucleotidesToUnsigned(std::string::iterator b, std::string::iterator e)
+unsigned nucleotidesToUnsigned(std::string::const_iterator b, std::string::const_iterator e)
 {
     return std::accumulate(b, e, 0, NucleotidesToBits());
 }
 
-unsigned nucleotideHash(std::string::iterator b, std::string::iterator e)
+unsigned nucleotideHash(std::string::const_iterator b, std::string::const_iterator e)
 {
     unsigned hash = std::accumulate(b, e, 0, NucleotidesToBits());
     return hash + 4 * (::pow(4, std::distance(b, e) - 1) - 1) / 3;

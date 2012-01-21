@@ -37,22 +37,29 @@ int main (int argc, const char * argv[])
                 std::cerr << "string_to_unsigned test error: " << input << ' ' << l << '\n';
             }
 
-            complementNucleotides(inputCopy2);
+            complementNucleotides(inputCopy2.begin(), inputCopy2.end());
             if (inputCopy1 != inputCopy2) 
             {
                 std::cerr << "comp test error: " << input << ' ' << inputCopy1 << ' ' << inputCopy2 << '\n';
             }
             std::reverse(inputCopy2.begin(), inputCopy2.end());
-            reverseComplementNucleotides(inputCopy3);
+            reverseComplementNucleotides(inputCopy3.begin(), inputCopy3.end());
             if (inputCopy2 != inputCopy3)
             {
-                std::cerr << "rev comp test error: " << input << ' ' << inputCopy2 << ' ' << inputCopy2 << '\n';
+                std::cerr << "rev comp test error: " << input << ' ' << inputCopy2 << ' ' << inputCopy3 << '\n';
             }
             unsigned hash = nucleotideHash(input.begin(), input.end());
             if (hash != hashTestResult) 
             {
                 std::cerr << "hash test error: " << input << ' ' << hash << ' ' << hashTestResult << '\n';
             }
+            unsigned revCompHash = nucleotideRevCompHash(input.begin(), input.end());
+            unsigned revCompHashCheck = nucleotideHash(inputCopy3.begin(), inputCopy3.end());
+            if (revCompHash != revCompHashCheck) 
+            {
+                std::cerr << "rev comp hash test error: " << input << ' ' << revCompHashCheck << ' ' << revCompHash << '\n';
+            }
+
             std::string inverseHash(inverseNucleotideHash(hashTestResult));
             if (inverseHash != input) {
                 std::cerr << "inverse hash test error: " << input << ' ' << hashTestResult << ' ' << inverseHash << '\n'; 

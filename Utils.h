@@ -17,10 +17,11 @@ void unsignedToNucleotides(unsigned n, std::string& s);
 
 unsigned nucleotidesToUnsigned(std::string::const_iterator b, std::string::const_iterator e);
 unsigned nucleotideHash(std::string::const_iterator b, std::string::const_iterator e);
+unsigned nucleotideRevCompHash(std::string::const_iterator b, std::string::const_iterator e);
 std::string inverseNucleotideHash(unsigned hash);
 
-void complementNucleotides(std::string& s);
-void reverseComplementNucleotides(std::string&);
+void complementNucleotides(std::string::iterator b, std::string::iterator e);
+void reverseComplementNucleotides(std::string::iterator b, std::string::iterator e);
 
 
 #endif

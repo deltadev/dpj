@@ -28,7 +28,8 @@ void unsignedToNucleotides(unsigned n, std::string& s)
 
 struct NucleotidesToBits : std::binary_function<unsigned, char, unsigned>
 {
-    unsigned operator()(unsigned currentBits, char nextSymbol) {
+    unsigned operator()(unsigned currentBits, char nextSymbol) 
+    {
         currentBits <<= 2;
         unsigned bits = 0;
         if (nextSymbol == 'A' || nextSymbol == 'a') 
@@ -44,6 +45,25 @@ struct NucleotidesToBits : std::binary_function<unsigned, char, unsigned>
         return currentBits | bits;
     }
 };
+struct NucleotidesToCompBits : std::binary_function<unsigned, char, unsigned>
+{
+    unsigned operator()(unsigned currentBits, char nextSymbol) 
+    {
+        currentBits <<= 2;
+        unsigned bits = 0;
+        if (nextSymbol == 'A' || nextSymbol == 'a') 
+            bits = 3;
+        else if (nextSymbol == 'C' || nextSymbol == 'c') 
+            bits = 2;
+        else if (nextSymbol == 'G' || nextSymbol == 'g') 
+            bits = 1;
+        else if (nextSymbol == 'T' || nextSymbol == 't') 
+            bits = 0;
+        else 
+            exit(EXIT_FAILURE);
+        return currentBits | bits;
+    }
+};
 
 unsigned nucleotidesToUnsigned(std::string::const_iterator b, std::string::const_iterator e)
 {
@@ -54,6 +74,22 @@ unsigned nucleotideHash(std::string::const_iterator b, std::string::const_iterat
 {
     unsigned hash = std::accumulate(b, e, 0, NucleotidesToBits());
     return hash + 4 * (::pow(4, std::distance(b, e) - 1) - 1) / 3;
+}
+
+unsigned nucleotideRevCompHash(std::string::const_iterator b, std::string::const_iterator e)
+{
+    unsigned hash = std::accumulate(b, e, 0, NucleotidesToCompBits());
+    
+    // Now we need to rotate the bits...
+    size_t len = std::distance(b, e);
+    unsigned newHash = 0;
+    for (unsigned i = 0; i < len; ++i) 
+    {
+        newHash <<= 2;
+        newHash |= hash & 3;
+        hash >>= 2;
+    }
+    return newHash + 4 * (::pow(4, len - 1) - 1) / 3;
 }
 
 std::string inverseNucleotideHash(unsigned hash)
@@ -85,13 +121,13 @@ namespace {
         }
     };
 }
-void complementNucleotides(std::string& s)
+void complementNucleotides(std::string::iterator b, std::string::iterator e)
 {
-    std::transform(s.begin(), s.end(), s.begin(), Complement());
+    std::transform(b, e, b, Complement());
 }
-void reverseComplementNucleotides(std::string& s)
+void reverseComplementNucleotides(std::string::iterator b, std::string::iterator e)
 {
-    std::reverse(s.begin(), s.end());
-    std::transform(s.begin(), s.end(), s.begin(), Complement());
+    std::reverse(b, e);
+    std::transform(b, e, b, Complement());
 }
 

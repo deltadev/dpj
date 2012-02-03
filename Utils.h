@@ -24,4 +24,7 @@ void complementNucleotides(std::string::iterator b, std::string::iterator e);
 void reverseComplementNucleotides(std::string::iterator b, std::string::iterator e);
 
 
+
+std::string readFile(std::string fileName);
+
 #endif

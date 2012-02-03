@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <fstream>
 
 #include <algorithm>
 #include <numeric>
@@ -129,5 +130,28 @@ void reverseComplementNucleotides(std::string::iterator b, std::string::iterator
 {
     std::reverse(b, e);
     std::transform(b, e, b, Complement());
+}
+
+
+std::string readFile(std::string fileName)
+{
+    std::ifstream t(fileName);
+    if (! t.good()) 
+    {
+        std::cerr << "Problem opening source file: " << fileName << ".\n";
+    }
+    
+    t.seekg(0, std::ios::end);
+    size_t size = t.tellg();
+    std::string buffer(size, ' ');
+    t.seekg(0);
+    t.read(&buffer[0], size); 
+    
+    if (t.fail()) 
+    {
+        std::cerr << "Failed to read from file: " << fileName << ". Exiting...\n";
+        exit(EXIT_FAILURE);
+    }
+    return buffer;
 }
 

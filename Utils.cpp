@@ -1,6 +1,6 @@
 //
 //  Utils.cpp
-//  HistogramSelector
+//  DPJUtils
 //
 //  Created by Daniel James on 01/01/2012.
 //  Copyright (c) 2012 deltadev.co.uk. All rights reserved.

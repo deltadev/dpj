@@ -1,13 +1,13 @@
 //
 //  Utils.h
-//  HistogramSelector
+//  DPJUtils
 //
 //  Created by Daniel James on 01/01/2012.
 //  Copyright (c) 2012 deltadev.co.uk. All rights reserved.
 //
 
-#ifndef HistogramSelector_Utils_h
-#define HistogramSelector_Utils_h
+#ifndef DPJUtils_Utils_h
+#define DPJUtils_Utils_h
 
 #include <string>
 

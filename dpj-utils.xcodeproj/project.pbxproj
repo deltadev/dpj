@@ -13,6 +13,9 @@
 		22C5487514BF25E900C12F29 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C5487414BF25E900C12F29 /* main.cpp */; };
 		22C5487714BF25E900C12F29 /* utils_tests.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22C5487614BF25E900C12F29 /* utils_tests.1 */; };
 		22C5487B14BF25FC00C12F29 /* libdpj-utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C5486014BF253200C12F29 /* libdpj-utils.a */; };
+		22DD8EDF14DFFA0F00AB16B6 /* Utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */; };
+		22DD8EE214DFFF9900AB16B6 /* tests.h in Headers */ = {isa = PBXBuildFile; fileRef = 22DD8EE114DFFF9900AB16B6 /* tests.h */; };
+		22DD8EE414E001D900AB16B6 /* tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DD8EE314E001D900AB16B6 /* tests.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -45,6 +48,9 @@
 		22C5487114BF25E900C12F29 /* utils-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "utils-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C5487414BF25E900C12F29 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		22C5487614BF25E900C12F29 /* utils_tests.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = utils_tests.1; sourceTree = "<group>"; };
+		22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
+		22DD8EE114DFFF9900AB16B6 /* tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tests.h; sourceTree = "<group>"; };
+		22DD8EE314E001D900AB16B6 /* tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tests.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,7 @@
 		22C5485514BF253200C12F29 = {
 			isa = PBXGroup;
 			children = (
+				22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */,
 				22C5486714BF25A000C12F29 /* Utils.cpp */,
 				22C5486814BF25A000C12F29 /* Utils.h */,
 				22C5487314BF25E900C12F29 /* utils-tests */,
@@ -90,6 +97,8 @@
 			children = (
 				22C5487414BF25E900C12F29 /* main.cpp */,
 				22C5487614BF25E900C12F29 /* utils_tests.1 */,
+				22DD8EE114DFFF9900AB16B6 /* tests.h */,
+				22DD8EE314E001D900AB16B6 /* tests.cpp */,
 			);
 			path = "utils-tests";
 			sourceTree = "<group>";
@@ -102,6 +111,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C5486B14BF25A000C12F29 /* Utils.h in Headers */,
+				22DD8EDF14DFFA0F00AB16B6 /* Utils.hpp in Headers */,
+				22DD8EE214DFFF9900AB16B6 /* tests.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C5486A14BF25A000C12F29 /* Utils.cpp in Sources */,
+				22DD8EE414E001D900AB16B6 /* tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,18 @@
 		22DD8EDF14DFFA0F00AB16B6 /* Utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */; };
 		22DD8EE214DFFF9900AB16B6 /* tests.h in Headers */ = {isa = PBXBuildFile; fileRef = 22DD8EE114DFFF9900AB16B6 /* tests.h */; };
 		22DD8EE414E001D900AB16B6 /* tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DD8EE314E001D900AB16B6 /* tests.cpp */; };
+		22DD8EE514E011EF00AB16B6 /* Utils.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22DD8EE614E0123200AB16B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22C5485714BF253200C12F29 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22C5485F14BF253200C12F29;
+			remoteInfo = "dpj-utils";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		221220FF14BF47DF0048C399 /* CopyFiles */ = {
@@ -25,6 +36,7 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
+				22DD8EE514E011EF00AB16B6 /* Utils.hpp in CopyFiles */,
 				2212210114BF47EE0048C399 /* Utils.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +160,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				22DD8EE714E0123200AB16B6 /* PBXTargetDependency */,
 			);
 			name = "utils-tests";
 			productName = "utils-tests";
@@ -200,6 +213,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22DD8EE714E0123200AB16B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22C5485F14BF253200C12F29 /* dpj-utils */;
+			targetProxy = 22DD8EE614E0123200AB16B6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		22C5486214BF253200C12F29 /* Debug */ = {

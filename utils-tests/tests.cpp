@@ -113,6 +113,6 @@ bool orderTest()
 
 bool histogramTest()
 {
-    bool pass(true);
+    //bool pass(true);
     return false;
 }

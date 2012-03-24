@@ -42,7 +42,10 @@ struct NucleotidesToBits : std::binary_function<unsigned, char, unsigned>
         else if (nextSymbol == 'T' || nextSymbol == 't') 
             bits = 3;
         else 
+        {
+            std::cerr << "encountered symbol not in alphabet: " << nextSymbol << '\n';
             exit(EXIT_FAILURE);
+        }
         return currentBits | bits;
     }
 };

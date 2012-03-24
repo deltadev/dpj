@@ -115,7 +115,7 @@ class Order
             
             // This makes sure the final bin captures the largest value after rounding errors.
             // It is also a dumb way to do it. Sorry.
-            while (m_min + m_binWidth * m_numBins < m_max) 
+            while (m_min + m_binWidth * m_numBins <= m_max) 
             {
                 m_binWidth += std::numeric_limits<T>::epsilon() * m_numBins;
             }

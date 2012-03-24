@@ -155,3 +155,38 @@ std::string readFile(std::string fileName)
     return buffer;
 }
 
+//
+// The PWM should have the natural layout:
+// 
+//   col1 col2 ... colN
+// A m11  m12  ... m1n
+// C m21
+// G m31
+// T m41       ... m4n
+//
+// or its transpose.
+// 
+std::vector<float> readPWM(std::istream is, bool rowMajorStorage = false)
+{
+    float tok;    
+    std::vector<float> tmp;
+    while (is >> tok)
+    {
+        tmp.push_back(tok);
+    }
+    std::vector<float> pwm(tmp);
+
+    if ( ! rowMajorStorage)
+    {
+        // transpose.
+        unsigned counter = 0;
+        unsigned motifLength = tmp.size()/4;
+        for (float f : tmp)
+        {
+            unsigend row = counter % 4;
+            unsigned col = counter / 4;
+            pwm[row * motifLength + col];
+        }
+    }
+    return pwm;
+}

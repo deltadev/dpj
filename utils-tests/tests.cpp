@@ -116,3 +116,10 @@ bool histogramTest()
     //bool pass(true);
     return false;
 }
+
+bool pwmTest()
+{
+    std::istringstream ss;
+    ss.str("1 2 3 4 5 6 7 8");
+    readPWM(ss, false);
+}

@@ -10,6 +10,8 @@
 #define DPJUtils_Utils_h
 
 #include <string>
+#include <vector>
+#include <iostream>
 
 // Outputs a string of length s.size() that is the nth element of the
 // lexicographical ordering of strings from the alphabet {A, C, G, T}.
@@ -29,5 +31,7 @@ void reverseComplementNucleotides(std::string::iterator b, std::string::iterator
 
 
 std::string readFile(std::string fileName);
+
+std::vector<float> readPWM(std::istream is, bool rowMajorStorage = false);
 
 #endif

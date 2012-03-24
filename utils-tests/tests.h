@@ -18,4 +18,5 @@ bool orderTest();
 
 bool histogramTest();
 
+bool pwmTest();
 #endif

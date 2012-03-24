@@ -20,7 +20,9 @@ int main (int argc, const char * argv[])
     result = orderTest();
     std::cout << "pass: " << std::boolalpha <<  result << std::endl;
 
-    
+    std::cout << "running readPWM test...\n";
+    result = orderTest();
+    std::cout << "pass: " << std::boolalpha <<  result << std::endl;
     
     return 0;
 }

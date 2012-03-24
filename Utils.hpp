@@ -117,7 +117,7 @@ class Order
             // It is also a dumb way to do it. Sorry.
             while (m_min + m_binWidth * m_numBins < m_max) 
             {
-                m_binWidth += std::numeric_limits<T>::epsilon();
+                m_binWidth += std::numeric_limits<T>::epsilon() * m_numBins;
             }
             
             m_rightHandEndPoints.push_back(m_min + m_binWidth);

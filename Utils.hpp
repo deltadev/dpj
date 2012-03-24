@@ -145,6 +145,19 @@ class Order
         
         T max() { return m_max; }
         T min() { return m_min; }
+
+        void summary(std::ostream& os = std::cout)
+            {
+                os << "min value: " << m_min << '\n';
+                os << "max value: " << m_max << '\n';
+                os << "num bins : " << m_numBins << '\n';
+                os << "bin width: " << m_binWidth << '\n';
+                os << "rightHandEndpoint count\n";
+                for (unsigned i = 0; i < m_rightHandEndPoints.size(); ++i)
+                {
+                    os << m_rightHandEndPoints[i] << ' ' << m_counts[i] << '\n';
+                }
+            }
     };
 
 } // namespace dpj_utils

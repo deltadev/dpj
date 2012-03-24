@@ -135,7 +135,7 @@ void reverseComplementNucleotides(std::string::iterator b, std::string::iterator
 
 std::string readFile(std::string fileName)
 {
-    std::ifstream t(fileName);
+    std::ifstream t(fileName.c_str());
     if (! t.good()) 
     {
         std::cerr << "Problem opening source file: " << fileName << ".\n";

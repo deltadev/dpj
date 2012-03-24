@@ -16,6 +16,9 @@
 void unsignedToNucleotides(unsigned n, std::string& s);
 
 unsigned nucleotidesToUnsigned(std::string::const_iterator b, std::string::const_iterator e);
+
+
+// hash nucleotide nmers of various lengths to unique buckets.
 unsigned nucleotideHash(std::string::const_iterator b, std::string::const_iterator e);
 unsigned nucleotideRevCompHash(std::string::const_iterator b, std::string::const_iterator e);
 std::string inverseNucleotideHash(unsigned hash);

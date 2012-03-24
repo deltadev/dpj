@@ -32,6 +32,6 @@ void reverseComplementNucleotides(std::string::iterator b, std::string::iterator
 
 std::string readFile(std::string fileName);
 
-std::vector<float> readPWM(std::istream is, bool rowMajorStorage = false);
+std::vector<float> readPWM(std::istream& is, bool rowMajorStorage = false);
 
 #endif

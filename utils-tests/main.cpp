@@ -21,7 +21,7 @@ int main (int argc, const char * argv[])
     std::cout << "pass: " << std::boolalpha <<  result << std::endl;
 
     std::cout << "running readPWM test...\n";
-    result = orderTest();
+    result = pwmTest();
     std::cout << "pass: " << std::boolalpha <<  result << std::endl;
     
     return 0;

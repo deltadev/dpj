@@ -166,7 +166,7 @@ std::string readFile(std::string fileName)
 //
 // or its transpose.
 // 
-std::vector<float> readPWM(std::istream is, bool rowMajorStorage = false)
+std::vector<float> readPWM(std::istream& is, bool rowMajorStorage)
 {
     float tok;    
     std::vector<float> tmp;
@@ -179,13 +179,14 @@ std::vector<float> readPWM(std::istream is, bool rowMajorStorage = false)
     if ( ! rowMajorStorage)
     {
         // transpose.
-        unsigned counter = 0;
         unsigned motifLength = tmp.size()/4;
-        for (float f : tmp)
-        {
-            unsigend row = counter % 4;
+        unsigned counter = 0;
+        for (auto it = tmp.begin(); it != tmp.end(); ++it)
+        {            
+            unsigned row = counter % 4;
             unsigned col = counter / 4;
-            pwm[row * motifLength + col];
+            pwm[row * motifLength + col] = *it;
+            counter++;
         }
     }
     return pwm;

@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <vector>
+#include <sstream>
 #include <string>
 
 
@@ -121,5 +122,18 @@ bool pwmTest()
 {
     std::istringstream ss;
     ss.str("1 2 3 4 5 6 7 8");
-    readPWM(ss, false);
+    std::vector<float> pwm = readPWM(ss, false);
+    unsigned counter = 0;
+    float truthArray[8] = {1, 5, 2, 6, 3, 7, 4, 8};
+    std::vector<float> truth(truthArray, truthArray + 8);
+    for (float f : pwm)
+    {
+        if ( ! (counter++ % (pwm.size()/4)))
+            std::cout << '\n';
+        
+        std::cout << f << ' ';
+    }
+    
+    std::cout << '\n';
+    return (truth == pwm);
 }

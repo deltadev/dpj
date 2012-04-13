@@ -194,3 +194,20 @@ std::vector<float> readPWM(std::istream& is, bool rowMajorStorage)
     }
     return pwm;
 }
+
+
+std::string readFasta(std::string fileName)
+{
+    std::string fasta, line;
+    std::ifstream iFile(fileName.c_str());
+    std::getline(iFile, line); // header
+    unsigned lineCounter = 0;
+    while (iFile >> line)
+    {
+        lineCounter++;
+        fasta += line;
+    }
+    std::cerr << "read " << lineCounter << " lines of fasta.\n";
+    
+    return fasta;
+}

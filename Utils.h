@@ -34,4 +34,6 @@ std::string readFile(std::string fileName);
 
 std::vector<float> readPWM(std::istream& is, bool rowMajorStorage = false);
 
+std::string readFasta(std::string fileName);
+
 #endif

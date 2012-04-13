@@ -83,6 +83,11 @@ class Order
     std::vector<unsigned> m_index;
 };
 
+    struct IsNaNPredicate
+    {
+        template <typename T>
+        bool operator()(T f) { return std::isnan(f) == 0 ? false : true; }
+    };
     
     template <typename T>
     class Histogram
@@ -108,6 +113,10 @@ class Order
                 std::cerr << "Error: trying to build histogram with nodata!. Exiting...\n";
                 exit(EXIT_FAILURE);
             }
+
+            // Remove any NaNs
+            m_data.erase(std::remove_if(m_data.begin(), m_data.end(), IsNaNPredicate()), m_data.end());
+
             std::sort(m_data.begin(), m_data.end());
             m_min = m_data.front();
             m_max = m_data.back();

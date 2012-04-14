@@ -121,7 +121,7 @@ namespace {
             else if (c == 'C' || c == 'c') return 'G';
             else if (c == 'G' || c == 'g') return 'C';
             else if (c == 'T' || c == 't') return 'A';
-            else return 'Z';
+            else return 'N';
         }
     };
 }

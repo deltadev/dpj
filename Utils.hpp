@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 
+#include <unordered_set>
+
 namespace dpj_utils {
 
 template <typename T> struct printPair

@@ -182,7 +182,7 @@ std::vector<float> readPWM(std::istream& is, bool rowMajorStorage)
     if ( ! rowMajorStorage)
     {
         // transpose.
-        unsigned motifLength = tmp.size()/4;
+        unsigned motifLength = (unsigned)tmp.size()/4;
         unsigned counter = 0;
         for (auto it = tmp.begin(); it != tmp.end(); ++it)
         {            

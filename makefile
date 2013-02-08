@@ -1,11 +1,16 @@
-CXXFLAGS=-O3 -std=c++11
-all: Utils.o
-	ar -rvs $(HOME)/lib/libdpj.a Utils.o
-	ar -tv $(HOME)/lib/libdpj.a
-	cp Utils.h Utils.hpp $(HOME)/include/
-test:
-	g++ test.cpp -o test -ldpj
-	./test
+CXX=clang++
+CXXFLAGS=-O3 -std=c++11 -stdlib=libc++
 
+
+all: Utils.o
+	ar -rvs $(HOME)/lib/libdpj.a Utils.o #create or add file to archive
+	ar -tv $(HOME)/lib/libdpj.a #list archive members
+	cp Utils.h Utils.hpp $(HOME)/include/
+
+Utils.o:
+utils-tests/main: utils-tests/tests.cpp
+
+run_test: 
+	cd utils-tests && $(MAKE)
 clean:
-	rm -f dpj_utils.o test
+	rm -f Utils.o test

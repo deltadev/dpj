@@ -173,7 +173,7 @@
 		22C5485714BF253200C12F29 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = deltadev.co.uk;
 			};
 			buildConfigurationList = 22C5485A14BF253200C12F29 /* Build configuration list for PBXProject "dpj-utils" */;
@@ -280,6 +280,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				LD_DYLIB_INSTALL_NAME = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -291,6 +292,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				LD_DYLIB_INSTALL_NAME = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

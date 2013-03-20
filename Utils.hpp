@@ -10,34 +10,6 @@
 
 namespace dpj_utils {
   
-  template <typename T> struct printPair
-  { void operator()(T t) { std::cout << t.first << ' ' << t.second << '\n'; } };
-  
-  template <typename VectorType>
-  void printVector(const VectorType& pload, size_t n = 10, std::ostream& os = std::cout)
-  {
-    typedef typename VectorType::value_type value_type;
-    n = std::min(n, pload.size());
-    
-    if (n > 10)
-    {
-      //
-      // Print an abridged version.
-      //
-      std::copy(pload.begin(), pload.begin() + n / 2,
-                std::ostream_iterator<value_type >(os, "\n"));
-      
-      std::cout << "\n...\n...\n...\n\n" << std::endl;
-      
-      std::copy(pload.rbegin(), pload.rbegin() + n,
-                std::ostream_iterator<value_type >(os, "\n"));
-      os << std::endl;
-    }
-    else
-    {
-      std::copy(pload.begin(), pload.end(), std::ostream_iterator<value_type >(os, "\n"));
-    }
-  }
   //
   // order - obtain a rank or order of a container.
   //

@@ -19,7 +19,7 @@ class Histogram
 {
   typename std::vector<T> m_data;
   typename std::vector<double> m_rightHandEndPoints;
-  unsigned m_numBins;
+  size_t m_numBins;
   double m_min, m_max, m_binWidth;
   std::vector<unsigned> m_counts;
   
@@ -38,7 +38,7 @@ public:
   void numBins(unsigned numBins) { m_numBins = numBins; }
   
   double binWidth() const { return m_binWidth; }
-  unsigned numBins() const { return m_numBins; }
+  size_t numBins() const { return m_numBins; }
   void binData()
   {
     if (m_data.empty())

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2212210114BF47EE0048C399 /* Utils.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22C5486814BF25A000C12F29 /* Utils.h */; };
+		2274FC7D16FA8CA3001FE84B /* histogram.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2274FC7C16FA8CA3001FE84B /* histogram.hpp */; };
+		2274FC7F16FA8CD6001FE84B /* prettyprint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */; };
 		22C5486A14BF25A000C12F29 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C5486714BF25A000C12F29 /* Utils.cpp */; };
 		22C5486B14BF25A000C12F29 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C5486814BF25A000C12F29 /* Utils.h */; };
 		22C5487514BF25E900C12F29 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C5487414BF25E900C12F29 /* main.cpp */; };
@@ -54,6 +56,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2274FC7C16FA8CA3001FE84B /* histogram.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = histogram.hpp; sourceTree = "<group>"; };
+		2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = prettyprint.hpp; sourceTree = "<group>"; };
 		22C5486014BF253200C12F29 /* libdpj-utils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libdpj-utils.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C5486714BF25A000C12F29 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
 		22C5486814BF25A000C12F29 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 		22C5485514BF253200C12F29 = {
 			isa = PBXGroup;
 			children = (
+				2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */,
+				2274FC7C16FA8CA3001FE84B /* histogram.hpp */,
 				22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */,
 				22C5486714BF25A000C12F29 /* Utils.cpp */,
 				22C5486814BF25A000C12F29 /* Utils.h */,
@@ -125,6 +131,8 @@
 				22C5486B14BF25A000C12F29 /* Utils.h in Headers */,
 				22DD8EDF14DFFA0F00AB16B6 /* Utils.hpp in Headers */,
 				22DD8EE214DFFF9900AB16B6 /* tests.h in Headers */,
+				2274FC7D16FA8CA3001FE84B /* histogram.hpp in Headers */,
+				2274FC7F16FA8CD6001FE84B /* prettyprint.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +181,7 @@
 		22C5485714BF253200C12F29 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = deltadev.co.uk;
 			};
 			buildConfigurationList = 22C5485A14BF253200C12F29 /* Build configuration list for PBXProject "dpj-utils" */;
@@ -230,6 +238,10 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -244,6 +256,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -259,6 +272,10 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -268,6 +285,7 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;

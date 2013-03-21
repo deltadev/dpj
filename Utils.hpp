@@ -10,34 +10,6 @@
 
 namespace dpj_utils {
   
-  template <typename T> struct printPair
-  { void operator()(T t) { std::cout << t.first << ' ' << t.second << '\n'; } };
-  
-  template <typename VectorType>
-  void printVector(const VectorType& pload, size_t n = 10, std::ostream& os = std::cout)
-  {
-    typedef typename VectorType::value_type value_type;
-    n = std::min(n, pload.size());
-    
-    if (n > 10)
-    {
-      //
-      // Print an abridged version.
-      //
-      std::copy(pload.begin(), pload.begin() + n / 2,
-                std::ostream_iterator<value_type >(os, "\n"));
-      
-      std::cout << "\n...\n...\n...\n\n" << std::endl;
-      
-      std::copy(pload.rbegin(), pload.rbegin() + n,
-                std::ostream_iterator<value_type >(os, "\n"));
-      os << std::endl;
-    }
-    else
-    {
-      std::copy(pload.begin(), pload.end(), std::ostream_iterator<value_type >(os, "\n"));
-    }
-  }
   //
   // order - obtain a rank or order of a container.
   //
@@ -83,92 +55,6 @@ namespace dpj_utils {
     typename Container::const_iterator m_end;
     std::vector<Pair> m_ps;
     std::vector<unsigned> m_index;
-  };
-  
-  struct IsNaNPredicate
-  {
-    template <typename T>
-    bool operator()(T f) { return std::isnan(f) == 0 ? false : true; }
-  };
-  
-  template <typename T>
-  class Histogram
-  {
-    typename std::vector<T> m_data;
-    typename std::vector<T> m_rightHandEndPoints;
-    unsigned m_numBins;
-    T m_min, m_max, m_binWidth;
-    std::vector<unsigned> m_counts;
-    
-  public:
-    
-    template<typename Iterator>
-    Histogram(Iterator b, Iterator e) : m_data(b, e), m_numBins(10) { }
-    
-    void numBins(unsigned numBins) { m_numBins = numBins; }
-    T binWidth() { return m_binWidth; }
-    unsigned numBins() { return m_numBins; }
-    void binData()
-    {
-      if (m_data.empty())
-      {
-        std::cerr << "Error: trying to build histogram with nodata!. Exiting...\n";
-        exit(EXIT_FAILURE);
-      }
-      
-      // Remove any NaNs
-      m_data.erase(std::remove_if(m_data.begin(), m_data.end(), IsNaNPredicate()), m_data.end());
-      
-      std::sort(m_data.begin(), m_data.end());
-      m_min = m_data.front();
-      m_max = m_data.back();
-      m_binWidth = (m_max - m_min) / static_cast<T>(m_numBins);
-      
-      // This makes sure the final bin captures the largest value after rounding errors.
-      // It is also a dumb way to do it. Sorry.
-      while (m_min + m_binWidth * m_numBins <= m_max)
-      {
-        m_binWidth += std::numeric_limits<T>::epsilon() * m_numBins;
-      }
-      
-      m_rightHandEndPoints.push_back(m_min + m_binWidth);
-      for (unsigned i = 1; i < m_numBins; ++i)
-      {
-        m_rightHandEndPoints.push_back(m_rightHandEndPoints.back() + m_binWidth);
-      }
-      //
-      // Main loop over sorted data.
-      //
-      auto it = m_data.begin();
-      auto end = m_data.end();
-      for (auto a : m_rightHandEndPoints)
-      {
-        auto tmp = std::upper_bound(it, end, a);
-        m_counts.push_back((unsigned)std::distance(it, tmp));
-        it = tmp;
-      }
-    }
-    unsigned maxCount() { return *std::max_element(m_counts.begin(), m_counts.end());}
-    
-    std::vector<unsigned> const& counts() { return m_counts; }
-    
-    std::vector<T> const& endPoints() {return m_rightHandEndPoints; }
-    
-    T max() { return m_max; }
-    T min() { return m_min; }
-    
-    void summary(std::ostream& os = std::cout)
-    {
-      os << "min value: " << m_min << '\n';
-      os << "max value: " << m_max << '\n';
-      os << "num bins : " << m_numBins << '\n';
-      os << "bin width: " << m_binWidth << '\n';
-      os << "rightHandEndpoint count\n";
-      for (unsigned i = 0; i < m_rightHandEndPoints.size(); ++i)
-      {
-        os << m_rightHandEndPoints[i] << ' ' << m_counts[i] << '\n';
-      }
-    }
   };
   
   

@@ -28,6 +28,13 @@ public:
   template<typename Iterator>
   Histogram(Iterator b, Iterator e) : m_data(b, e), m_numBins(10) { }
   
+  template<typename Container, typename Accessor>
+  Histogram(Container c, Accessor a) : m_numBins(c.size())
+  {
+    for (auto const& e : c)
+      m_data.push_back(a(e));
+  }
+  
   void numBins(unsigned numBins) { m_numBins = numBins; }
   
   double binWidth() const { return m_binWidth; }
@@ -87,10 +94,10 @@ public:
   
   std::vector<unsigned> const& counts() const { return m_counts; }
   
-  std::vector<T> const& endPoints() const {return m_rightHandEndPoints; }
+  std::vector<double> const& endPoints() const {return m_rightHandEndPoints; }
   
-  T max() const { return m_max; }
-  T min() const { return m_min; }
+  double max() const { return m_max; }
+  double min() const { return m_min; }
   
   void summary(std::ostream& os = std::cout) const
   {

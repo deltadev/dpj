@@ -115,10 +115,11 @@ bool orderTest()
 
 bool histogramTest()
 {
-  std::vector<double> rs(1000);
+  std::vector<double> rs{0, 1,2,3,4,5.0000000};
   Histogram<double> h(rs.begin(), rs.end());
   h.binData();
   h.draw();
+  h.summary();
   return true;
 }
 

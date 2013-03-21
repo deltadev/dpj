@@ -23,7 +23,10 @@ int main (int argc, const char * argv[])
     std::cout << "running readPWM test...\n";
     result = pwmTest();
     std::cout << "pass: " << std::boolalpha <<  result << std::endl;
-    
+  
+    std::cout << "running histogram test...\n";
+    result = histogramTest();
+    std::cout << "pass: " << std::boolalpha <<  result << std::endl;
     return 0;
 }
 

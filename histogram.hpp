@@ -1,9 +1,6 @@
 #ifndef _HISTOGRAM_H_
 #define _HISTOGRAM_H_
 
-
-
-
 #include <cmath>
 
 struct maybe_is_nan

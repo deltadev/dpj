@@ -12,14 +12,15 @@
 
 #include <iostream>
 #include <vector>
+#include <array>
 #include <sstream>
 #include <string>
 
 #include "prettyprint.hpp"
 #include "histogram.hpp"
 
-#include "Utils.h"
-#include "Utils.hpp"
+#include "dpj_utils.h"
+#include "dpj_utils.hh"
 
 
 bool nucToolsTest()
@@ -93,6 +94,7 @@ bool nucToolsTest()
       }
     }
   }
+  
   return pass;
 }
 
@@ -102,13 +104,15 @@ bool orderTest()
 {
   bool pass(true);
   int intsArray[7] = {1, 3, 2, -1, 8, 8, 5};
+  cout << "data is:\n" << intsArray << '\n';
+  
   std::vector<int> ints(std::begin(intsArray), std::end(intsArray));
+  std::vector<int> ordered(ints.size());
+  dpj::order(ints.begin(), ints.end(), ordered.begin());
+  cout << "order is:\n" << ordered << '\n';
   
-  dpj_utils::Order<std::vector<int>> o(ints);
-  cout << "order is:\n" << o.index() << '\n';
-  
-  dpj_utils::Order<std::vector<unsigned>> rank(o.index());
-  cout << "rank is:\n" << rank.index() << '\n';
+  dpj::order(ordered.begin(), ordered.end(), ordered.begin());
+  cout << "rank is:\n" << ordered << '\n';
   
   return pass;
 }
@@ -142,3 +146,57 @@ bool pwmTest()
   cout << '\n';
   return (truth == pwm);
 }
+
+std::array<double, 25> x{
+  {
+    0.95066605,  0.73844443,  0.25084646,  0.48559874,  0.7162443 ,
+    0.93823069,  0.00725236,  0.43974925,  0.63150104,  0.8168913 ,
+    0.20459832,  0.99897657,  0.60544523,  0.50133834,  0.79542532,
+    0.32799355,  0.07951997,  0.70075721,  0.8468032 ,  0.08510824,
+    0.64527051,  0.37971715,  0.61769385,  0.03528504,  0.41282303
+  }
+};
+std::array<double, 25> y{
+  {   
+    0.16297828, 0.48221679, 0.84467651, 0.84281474, 0.08119215,
+    0.77225741, 0.43086105, 0.15751603, 0.02472734, 0.10697636,
+    0.98900186, 0.20101628, 0.11519468, 0.58241635, 0.43585047,
+    0.60467086, 0.99328387, 0.99207509, 0.31556858, 0.2553983 ,
+    0.51795227, 0.00341642, 0.17557971, 0.8360058 , 0.98655175
+  }
+};
+
+bool covariance_test() {
+  double res = dpj::covariance(x.begin(), x.end(), y.begin());
+  double actual = -0.03959601;
+  std::cout << actual << ", " << res << '\n';
+  return std::abs(res - actual) <  0.0000001;
+}
+
+bool pearson_cc_test() {
+  double res = dpj::pearsons_cc(x.begin(), x.end(), y.begin());
+  double actual = -0.38256335;
+  std::cout << actual << ", " << res << '\n';
+  return std::abs(res - actual) <  0.0000001;
+}
+
+bool spearman_cc_test() {
+  double res = dpj::spearmans_cc(x.begin(), x.end(), y.begin());
+  double actual = -0.34923076923076929;
+  std::cout << actual << ", " << res << '\n';
+  return std::abs(res - actual) <  0.0000001;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

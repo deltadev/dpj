@@ -1,11 +1,3 @@
-//
-//  Utils.h
-//  DPJUtils
-//
-//  Created by Daniel James on 01/01/2012.
-//  Copyright (c) 2012 deltadev.co.uk. All rights reserved.
-//
-
 #ifndef DPJUtils_Utils_h
 #define DPJUtils_Utils_h
 
@@ -36,5 +28,6 @@ std::vector<float> readPWM(std::istream& is, bool rowMajorStorage = false);
 
 std::string readFasta(std::string fileName);
 
+#include "dpj_utils.hh"
 
 #endif

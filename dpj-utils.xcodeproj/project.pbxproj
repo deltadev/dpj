@@ -7,18 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2212210114BF47EE0048C399 /* Utils.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22C5486814BF25A000C12F29 /* Utils.h */; };
 		2274FC7D16FA8CA3001FE84B /* histogram.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2274FC7C16FA8CA3001FE84B /* histogram.hpp */; };
 		2274FC7F16FA8CD6001FE84B /* prettyprint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */; };
-		22C5486A14BF25A000C12F29 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C5486714BF25A000C12F29 /* Utils.cpp */; };
-		22C5486B14BF25A000C12F29 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C5486814BF25A000C12F29 /* Utils.h */; };
 		22C5487514BF25E900C12F29 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C5487414BF25E900C12F29 /* main.cpp */; };
 		22C5487714BF25E900C12F29 /* utils_tests.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22C5487614BF25E900C12F29 /* utils_tests.1 */; };
 		22C5487B14BF25FC00C12F29 /* libdpj-utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C5486014BF253200C12F29 /* libdpj-utils.a */; };
-		22DD8EDF14DFFA0F00AB16B6 /* Utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */; };
 		22DD8EE214DFFF9900AB16B6 /* tests.h in Headers */ = {isa = PBXBuildFile; fileRef = 22DD8EE114DFFF9900AB16B6 /* tests.h */; };
 		22DD8EE414E001D900AB16B6 /* tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22DD8EE314E001D900AB16B6 /* tests.cpp */; };
-		22DD8EE514E011EF00AB16B6 /* Utils.hpp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */; };
+		22E431161802F5D1001C0775 /* dpj_utils.hh in Headers */ = {isa = PBXBuildFile; fileRef = 22E431151802F5D1001C0775 /* dpj_utils.hh */; };
+		22E431191802F754001C0775 /* dpj_utils.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22E431171802F754001C0775 /* dpj_utils.cc */; };
+		22E4311A1802F754001C0775 /* dpj_utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 22E431181802F754001C0775 /* dpj_utils.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +36,6 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
-				22DD8EE514E011EF00AB16B6 /* Utils.hpp in CopyFiles */,
-				2212210114BF47EE0048C399 /* Utils.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,14 +55,14 @@
 		2274FC7C16FA8CA3001FE84B /* histogram.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = histogram.hpp; sourceTree = "<group>"; };
 		2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = prettyprint.hpp; sourceTree = "<group>"; };
 		22C5486014BF253200C12F29 /* libdpj-utils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libdpj-utils.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		22C5486714BF25A000C12F29 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
-		22C5486814BF25A000C12F29 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		22C5487114BF25E900C12F29 /* utils-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "utils-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C5487414BF25E900C12F29 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		22C5487614BF25E900C12F29 /* utils_tests.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = utils_tests.1; sourceTree = "<group>"; };
-		22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
 		22DD8EE114DFFF9900AB16B6 /* tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tests.h; sourceTree = "<group>"; };
 		22DD8EE314E001D900AB16B6 /* tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tests.cpp; sourceTree = "<group>"; };
+		22E431151802F5D1001C0775 /* dpj_utils.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dpj_utils.hh; sourceTree = "<group>"; };
+		22E431171802F754001C0775 /* dpj_utils.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dpj_utils.cc; sourceTree = "<group>"; };
+		22E431181802F754001C0775 /* dpj_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dpj_utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,11 +87,11 @@
 		22C5485514BF253200C12F29 = {
 			isa = PBXGroup;
 			children = (
+				22E431171802F754001C0775 /* dpj_utils.cc */,
+				22E431181802F754001C0775 /* dpj_utils.h */,
+				22E431151802F5D1001C0775 /* dpj_utils.hh */,
 				2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */,
 				2274FC7C16FA8CA3001FE84B /* histogram.hpp */,
-				22DD8EDE14DFFA0F00AB16B6 /* Utils.hpp */,
-				22C5486714BF25A000C12F29 /* Utils.cpp */,
-				22C5486814BF25A000C12F29 /* Utils.h */,
 				22C5487314BF25E900C12F29 /* utils-tests */,
 				22C5486114BF253200C12F29 /* Products */,
 			);
@@ -128,8 +124,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22C5486B14BF25A000C12F29 /* Utils.h in Headers */,
-				22DD8EDF14DFFA0F00AB16B6 /* Utils.hpp in Headers */,
+				22E431161802F5D1001C0775 /* dpj_utils.hh in Headers */,
+				22E4311A1802F754001C0775 /* dpj_utils.h in Headers */,
 				22DD8EE214DFFF9900AB16B6 /* tests.h in Headers */,
 				2274FC7D16FA8CA3001FE84B /* histogram.hpp in Headers */,
 				2274FC7F16FA8CD6001FE84B /* prettyprint.hpp in Headers */,
@@ -207,7 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22C5486A14BF25A000C12F29 /* Utils.cpp in Sources */,
+				22E431191802F754001C0775 /* dpj_utils.cc in Sources */,
 				22DD8EE414E001D900AB16B6 /* tests.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

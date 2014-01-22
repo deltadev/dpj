@@ -29,5 +29,6 @@ std::vector<float> readPWM(std::istream& is, bool rowMajorStorage = false);
 std::string readFasta(std::string fileName);
 
 #include "dpj_utils.hh"
-
+#include "prettyprint.hpp"
+#include "histogram.hpp"
 #endif

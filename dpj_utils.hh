@@ -1,11 +1,6 @@
 #ifndef _DPJ_UTILS_H_
 #define _DPJ_UTILS_H_
 
-
-
-
-
-
 #include <iostream>
 #include <iterator>
 #include <vector>
@@ -89,9 +84,33 @@ namespace dpj {
     for (index_t index = 0; first1 != last1; ++first1, ++index)
       pairs.emplace_back(first1, index);
 
-    std::sort(pairs.begin(), pairs.end(), [](pair_t l, pair_t r) { return *l.first < *r.first; });
+    std::sort(pairs.begin(), pairs.end(), [](pair_t l, pair_t r) {
+        return *l.first < *r.first;
+      });
     
-    std::transform(pairs.begin(), pairs.end(), first2, [](pair_t p) { return p.second; });
+    std::transform(pairs.begin(), pairs.end(), first2, [](pair_t p) {
+        return p.second;
+      });
+  }
+  template<typename Iter1, typename Iter2>
+  void stable_order(Iter1 first1, Iter1 last1, Iter2 first2) {
+
+    typedef typename Iter2::value_type index_t;
+    typedef std::pair<Iter1, index_t> pair_t;
+    
+    std::vector<pair_t> pairs;
+    pairs.reserve(std::distance(first1, last1));
+
+    for (index_t index = 0; first1 != last1; ++first1, ++index)
+      pairs.emplace_back(first1, index);
+
+    std::stable_sort(pairs.begin(), pairs.end(), [](pair_t l, pair_t r) {
+        return *l.first < *r.first;
+      });
+    
+    std::transform(pairs.begin(), pairs.end(), first2, [](pair_t p) {
+        return p.second;
+      });
   }
   
 
@@ -148,6 +167,10 @@ namespace dpj {
     return pearsons_cc(ranks_1.begin(), ranks_1.end(), ranks_2.begin());
   }
 }
+
+#include <netdb.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 
 namespace net {
 

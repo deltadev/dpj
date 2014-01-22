@@ -10,6 +10,8 @@ all: dpj_utils.o
 dpj_utils.o:
 utils-tests/main: utils-tests/tests.cpp
 
+copy:
+	cp dpj_utils.h dpj_utils.hh prettyprint.hpp histogram.hpp $(HOME)/include/
 run_test: 
 	cd utils-tests && $(MAKE)
 clean:

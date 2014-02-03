@@ -28,6 +28,11 @@ std::vector<float> readPWM(std::istream& is, bool rowMajorStorage = false);
 
 std::string readFasta(std::string fileName);
 
+namespace dpj {
+  std::string strip_string(std::string s);
+
+}
+
 #include "dpj_utils.hh"
 #include "prettyprint.hpp"
 #include "histogram.hpp"

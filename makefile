@@ -2,8 +2,8 @@ CXX=clang++
 CXXFLAGS=-O3 -std=c++11 -stdlib=libc++
 
 
-all: dpj_utils.o
-	ar -rvs $(HOME)/lib/libdpj.a dpj_utils.o #create or add file to archive
+all: dpj_utils.o net.o
+	ar -rvs $(HOME)/lib/libdpj.a dpj_utils.o net.o #create or add file to archive
 	ar -tv $(HOME)/lib/libdpj.a #list archive members
 	cp dpj_utils.h dpj_utils.hh prettyprint.hpp histogram.hpp $(HOME)/include/
 

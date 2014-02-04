@@ -17,7 +17,7 @@
 #include <string>
 
 #include "prettyprint.hpp"
-#include "histogram.hpp"
+#include "histogram.hh"
 
 #include "dpj_utils.h"
 #include "dpj_utils.hh"

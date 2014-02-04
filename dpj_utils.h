@@ -1,5 +1,5 @@
-#ifndef DPJUtils_Utils_h
-#define DPJUtils_Utils_h
+#ifndef _DPJ_UTILS_H_
+#define _DPJ_UTILS_H_
 
 #include <string>
 #include <vector>
@@ -30,10 +30,9 @@ std::string readFasta(std::string fileName);
 
 namespace dpj {
   std::string strip_string(std::string s);
-
+  
 }
 
 #include "dpj_utils.hh"
-#include "prettyprint.hpp"
-#include "histogram.hpp"
-#endif
+
+#endif /* _DPJ_UTILS_H_ */

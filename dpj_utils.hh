@@ -12,17 +12,19 @@
 
 namespace dpj
 {
-  template <typename T>
-  T ss_cast(const std::string& s)
-  {
-    std::stringstream ss{s};
-    T thing;
-    if ((ss >> thing).fail() || !(ss >> std::ws).eof())
+  namespace str {
+    template <typename T>
+    T cast(const std::string& s)
     {
-      throw std::bad_cast();
-    }
+      std::stringstream ss{s};
+      T thing;
+      if ((ss >> thing).fail() || !(ss >> std::ws).eof())
+      {
+        throw std::bad_cast();
+      }
 
-    return thing;
+      return thing;
+    }
   }
 }
 

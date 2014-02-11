@@ -1,11 +1,3 @@
-//
-//  Utils.cpp
-//  DPJUtils
-//
-//  Created by Daniel James on 01/01/2012.
-//  Copyright (c) 2012 deltadev.co.uk. All rights reserved.
-//
-
 #include <iostream>
 #include <fstream>
 
@@ -14,6 +6,17 @@
 #include <cmath>
 
 #include "dpj_utils.h"
+
+namespace dpj {
+  namespace str {
+    std::string strip(std::string s) {
+      auto fnb = s.find_first_not_of(" \r\n\t");
+      auto lnb = s.find_last_not_of(" \r\n\t");
+      return s.substr(fnb, lnb - fnb + 1);
+    }
+  }
+}
+
 
 void unsignedToNucleotides(unsigned n, std::string& s)
 {
@@ -212,10 +215,3 @@ std::string readFasta(std::string fileName)
   return fasta;
 }
 
-namespace dpj {
-  std::string strip_string(std::string s) {
-    auto fnb = s.find_first_not_of(" \r\n\t");
-    auto lnb = s.find_last_not_of(" \r\n\t");
-    return s.substr(fnb, lnb - fnb + 1);
-  }
-}

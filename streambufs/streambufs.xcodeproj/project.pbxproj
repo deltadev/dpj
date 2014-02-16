@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221FF91F18B0189D0073A332 /* test_text in CopyFiles */ = {isa = PBXBuildFile; fileRef = 221FF91D18B0189D0073A332 /* test_text */; };
+		221FF92018B0189D0073A332 /* test_text.gz in CopyFiles */ = {isa = PBXBuildFile; fileRef = 221FF91E18B0189D0073A332 /* test_text.gz */; };
 		224C275B18AC01A3009971F4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 224C275A18AC01A3009971F4 /* main.cpp */; };
 		224C275D18AC01A3009971F4 /* streambufs.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 224C275C18AC01A3009971F4 /* streambufs.1 */; };
 		2277A43518AD33D1000BEA16 /* http_streambuf.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277A43418AD33D1000BEA16 /* http_streambuf.1 */; };
@@ -15,7 +17,6 @@
 		2277A44018AD3401000BEA16 /* http_streambuf.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2277A43C18AD3401000BEA16 /* http_streambuf.cc */; };
 		2277A44218AD3468000BEA16 /* libdpj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2277A44118AD3468000BEA16 /* libdpj.a */; };
 		2277A44618AD34A4000BEA16 /* run_http_streambuf_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2277A44518AD34A4000BEA16 /* run_http_streambuf_test.cc */; };
-		2277A44818ADA55C000BEA16 /* dict_of_vulgar_tongue_1811.txt.gz in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277A44718ADA54F000BEA16 /* dict_of_vulgar_tongue_1811.txt.gz */; };
 		2277A44A18ADA572000BEA16 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2277A44918ADA572000BEA16 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +37,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				2277A44818ADA55C000BEA16 /* dict_of_vulgar_tongue_1811.txt.gz in CopyFiles */,
+				221FF91F18B0189D0073A332 /* test_text in CopyFiles */,
+				221FF92018B0189D0073A332 /* test_text.gz in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +55,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		221FF91D18B0189D0073A332 /* test_text */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_text; sourceTree = "<group>"; };
+		221FF91E18B0189D0073A332 /* test_text.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = test_text.gz; sourceTree = "<group>"; };
 		224C275718AC01A3009971F4 /* streambufs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = streambufs; sourceTree = BUILT_PRODUCTS_DIR; };
 		224C275A18AC01A3009971F4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		224C275C18AC01A3009971F4 /* streambufs.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = streambufs.1; sourceTree = "<group>"; };
@@ -66,7 +70,6 @@
 		2277A43D18AD3401000BEA16 /* http_streambuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = http_streambuf.h; path = ../../bbi/http_streambuf.h; sourceTree = "<group>"; };
 		2277A44118AD3468000BEA16 /* libdpj.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdpj.a; path = ../../../lib/libdpj.a; sourceTree = "<group>"; };
 		2277A44518AD34A4000BEA16 /* run_http_streambuf_test.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = run_http_streambuf_test.cc; path = ../../bbi/run_http_streambuf_test.cc; sourceTree = "<group>"; };
-		2277A44718ADA54F000BEA16 /* dict_of_vulgar_tongue_1811.txt.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = dict_of_vulgar_tongue_1811.txt.gz; sourceTree = "<group>"; };
 		2277A44918ADA572000BEA16 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -93,6 +96,8 @@
 		224C274E18AC01A2009971F4 = {
 			isa = PBXGroup;
 			children = (
+				221FF91D18B0189D0073A332 /* test_text */,
+				221FF91E18B0189D0073A332 /* test_text.gz */,
 				2277A44918ADA572000BEA16 /* libz.dylib */,
 				2277A44118AD3468000BEA16 /* libdpj.a */,
 				224C275918AC01A3009971F4 /* streambufs */,
@@ -113,7 +118,6 @@
 		224C275918AC01A3009971F4 /* streambufs */ = {
 			isa = PBXGroup;
 			children = (
-				2277A44718ADA54F000BEA16 /* dict_of_vulgar_tongue_1811.txt.gz */,
 				224C276318AC01CC009971F4 /* zlib_streambuf.hh */,
 				224C275A18AC01A3009971F4 /* main.cpp */,
 				224C275C18AC01A3009971F4 /* streambufs.1 */,
@@ -363,6 +367,7 @@
 				2277A43818AD33D1000BEA16 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

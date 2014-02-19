@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>18983DC1-A609-430D-AEA6-4C548AFF6DD3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>streambufs</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7C4B166A-3E8E-4617-B330-8956CA007A3B</key>
+		<string>ssh://github.com/deltadev/dpj-utils.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>streambufs/streambufs.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7C4B166A-3E8E-4617-B330-8956CA007A3B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/deltadev/dpj-utils.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7C4B166A-3E8E-4617-B330-8956CA007A3B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7C4B166A-3E8E-4617-B330-8956CA007A3B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>dpj-utils</string>
+		</dict>
+	</array>
+</dict>
+</plist>

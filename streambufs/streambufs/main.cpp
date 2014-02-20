@@ -2,7 +2,9 @@
 
 #include <iostream>
 #include <fstream>
-#include "zlib_streambuf.hh"
+#include <sstream>
+
+#include "zstreambuf.hh"
 
 #include <vector>
 #include <list>
@@ -30,7 +32,7 @@ int main(int argc, const char * argv[])
       if (!fz.good())
         throw std::runtime_error("couldn't open test_text.gz");
       
-      dpj::zlib_streambuf zbuf(fz.rdbuf());
+      dpj::zstreambuf zbuf(fz.rdbuf());
       std::string gunzipped;
       {
         std::istreambuf_iterator<char> b(&zbuf);
@@ -54,7 +56,7 @@ int main(int argc, const char * argv[])
       if (!fz.good())
         throw std::runtime_error("couldn't open test_text.gz");
       
-      dpj::zlib_streambuf zbuf(fz.rdbuf());
+      dpj::zstreambuf zbuf(fz.rdbuf());
       std::istream zs(&zbuf);
       
       bool all_true = true;
@@ -79,7 +81,15 @@ int main(int argc, const char * argv[])
       std::cout << "all lines equal: " << all_true << '\n';
     }
     
+    std::stringstream iss;
     
+    dpj::zstreambuf ozbuf(iss.rdbuf());
+    
+    std::ostream os(&ozbuf);
+    
+    os << "zip this mofo.";
+    
+    os.flush();
     
   } catch (std::exception& e) {
     std::cerr << "Exception: " << e.what() << '\n';

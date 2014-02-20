@@ -60,7 +60,7 @@
 		224C275718AC01A3009971F4 /* streambufs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = streambufs; sourceTree = BUILT_PRODUCTS_DIR; };
 		224C275A18AC01A3009971F4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		224C275C18AC01A3009971F4 /* streambufs.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = streambufs.1; sourceTree = "<group>"; };
-		224C276318AC01CC009971F4 /* zlib_streambuf.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = zlib_streambuf.hh; sourceTree = SOURCE_ROOT; };
+		224C276318AC01CC009971F4 /* zstreambuf.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = zstreambuf.hh; sourceTree = SOURCE_ROOT; };
 		2277A43018AD33D1000BEA16 /* http_streambuf */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = http_streambuf; sourceTree = BUILT_PRODUCTS_DIR; };
 		2277A43418AD33D1000BEA16 /* http_streambuf.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = http_streambuf.1; sourceTree = "<group>"; };
 		2277A43918AD3401000BEA16 /* http_session.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = http_session.cc; path = ../../bbi/http_session.cc; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		224C275918AC01A3009971F4 /* streambufs */ = {
 			isa = PBXGroup;
 			children = (
-				224C276318AC01CC009971F4 /* zlib_streambuf.hh */,
+				224C276318AC01CC009971F4 /* zstreambuf.hh */,
 				224C275A18AC01A3009971F4 /* main.cpp */,
 				224C275C18AC01A3009971F4 /* streambufs.1 */,
 			);

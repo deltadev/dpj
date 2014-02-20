@@ -83,13 +83,20 @@ int main(int argc, const char * argv[])
     
     std::stringstream iss;
     
-    dpj::zstreambuf ozbuf(iss.rdbuf());
+    dpj::zstreambuf_t<16> ozbuf(iss.rdbuf(), std::ios_base::out);
     
     std::ostream os(&ozbuf);
     
-    os << "zip this mofo.";
+    os << "zip this mofo. and this and this and this and this"
+          "zip this please. and that and there and here and then.";
+
+
+
     
     os.flush();
+    
+    std::string s = iss.str();
+
     
   } catch (std::exception& e) {
     std::cerr << "Exception: " << e.what() << '\n';

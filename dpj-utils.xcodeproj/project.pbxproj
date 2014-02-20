@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2274FC7D16FA8CA3001FE84B /* histogram.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2274FC7C16FA8CA3001FE84B /* histogram.hpp */; };
 		2274FC7F16FA8CD6001FE84B /* prettyprint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */; };
 		22C5487514BF25E900C12F29 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C5487414BF25E900C12F29 /* main.cpp */; };
 		22C5487714BF25E900C12F29 /* utils_tests.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22C5487614BF25E900C12F29 /* utils_tests.1 */; };
@@ -52,7 +51,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2274FC7C16FA8CA3001FE84B /* histogram.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = histogram.hpp; sourceTree = "<group>"; };
 		2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = prettyprint.hpp; sourceTree = "<group>"; };
 		22C5486014BF253200C12F29 /* libdpj-utils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libdpj-utils.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C5487114BF25E900C12F29 /* utils-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "utils-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,7 +89,6 @@
 				22E431181802F754001C0775 /* dpj_utils.h */,
 				22E431151802F5D1001C0775 /* dpj_utils.hh */,
 				2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */,
-				2274FC7C16FA8CA3001FE84B /* histogram.hpp */,
 				22C5487314BF25E900C12F29 /* utils-tests */,
 				22C5486114BF253200C12F29 /* Products */,
 			);
@@ -127,7 +124,6 @@
 				22E431161802F5D1001C0775 /* dpj_utils.hh in Headers */,
 				22E4311A1802F754001C0775 /* dpj_utils.h in Headers */,
 				22DD8EE214DFFF9900AB16B6 /* tests.h in Headers */,
-				2274FC7D16FA8CA3001FE84B /* histogram.hpp in Headers */,
 				2274FC7F16FA8CD6001FE84B /* prettyprint.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

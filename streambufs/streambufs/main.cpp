@@ -11,6 +11,45 @@
 
 #include "hex_b64_convert.h"
 
+/// tests inflating a zlib compressed file.
+//
+bool test_inflate_zlib_file(std::ifstream& ifs, std::ifstream& truth)
+{
+//  dpj::zstreambuf zsbuf{ifs};
+  return true;
+}
+
+/// tests inflating a a block of zlib bytes.
+//
+bool test_inflate_zlib_bytes(std::vector<uint8_t> const& bytes, std::string& truth)
+{
+  
+  return true;
+}
+
+/// tests deflating a zlib compressed file.
+//
+bool test_deflate_zlib_file(std::ifstream& ifs, std::ifstream& truth)
+{
+  
+  return true;
+}
+
+/// tests deflating a string into zlib block of bytes.
+//
+bool test_deflate_zlib_string(std::string const& str, std::vector<uint8_t> const& bytes)
+{
+//  std::string byte_str{bytes.begin(), bytes.end()};
+//  std::istringstream iss{byte_str};
+//  
+//  dpj::zstreambuf zsbuf{iss};
+//  
+//  std::istreambuf_iterator<char> b{&zsbuf};
+//  std::istreambuf_iterator<char> e;
+//  
+  return true; //str == std::string(b, e);
+}
+
 int main(int argc, const char * argv[])
 {
   try {

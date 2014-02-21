@@ -44,6 +44,8 @@ namespace dpj {
     zstreambuf_t(std::streambuf* io_sbuf, std::ios_base::openmode m = std::ios_base::in)
     : mode(m), io_sbuf(io_sbuf)
     {
+      // One can not static_cast<uint8_t*> to char*.
+      //
       z_in_b = reinterpret_cast<char*>(z_in_buf.begin());
       z_in_e = reinterpret_cast<char*>(z_in_buf.end());
       z_out_b = reinterpret_cast<char*>(z_out_buf.begin());
@@ -110,7 +112,7 @@ namespace dpj {
     // underflow()
     //
     //   - this method replenishes the get area when we've run out of decompressed
-    //     data. This is for decompression; hence it calls the inflate() method.
+    //     data. This is for decompression; hence it calls the inflate_buffer() method.
     //
     int_type underflow()
     {
@@ -143,16 +145,16 @@ namespace dpj {
         }
         else
         {
-          // n is the number of bytes written to the io_sbuf.
-          //
-          std::streamsize n = deflate_buffer();
-
+          deflate_buffer(ch);
           setp(z_in_b, z_in_e);
           return ch;
         }
       }
       else
+      {
+        setp(z_in_b, z_in_b);
         return traits_type::eof();
+      }
     }
     
 
@@ -160,7 +162,7 @@ namespace dpj {
     //
     int sync()
     {
-      int r = -1;
+
       if (mode == std::ios_base::in)
       {
         // TODO: What shoud we do with synch on compressed input?
@@ -172,53 +174,66 @@ namespace dpj {
       }
       else if (mode == std::ios_base::out)
       {
-        std::streamsize n = deflate_buffer();
-        int r = Z_OK;
-        
-        r = deflateReset(&zs);
+        deflate_buffer(traits_type::eof());
+        z_state = deflateReset(&zs);
       }
-      return r;
+
+      if (z_state != Z_OK)
+        return -1;
+      else
+        return 0;
     }
     
   private:
 
-    
-    std::streamsize deflate_buffer()
+    /// Pushes whatever is in our put area into the zstream.
+    //
+    //    - we might be called by overflow, in this case ch will be equal to either,
+    //
+    //    i) !traits_type::eof(), so deflate(&zs, Z_FINISH)
+    //    ii) traits_type::eof(), so deflate(&zs, Z_NO_FLUSH)
+    //
+    //    - we might be called by sync, in this case ch == traits_type::eof().
+    //
+    void deflate_buffer(int_type ch)
     {
-      // Feeds whatever is in the put area into the zstream.
+      // Everything in the put area is available.
       //
-      // - decides whether to call deflate.
-      //
-      std::ptrdiff_t z_avail_in = pptr() - pbase();
-      
-      if (z_avail_in == 0)
-        return 0;
-      
-      zs.avail_in = static_cast<unsigned>(z_avail_in);
+      zs.avail_in = static_cast<unsigned>(pptr() - pbase());
       zs.next_in = z_in_buf.begin();
       
-      int r = Z_OK;
-      while (zs.avail_in > 0 && zs.avail_out > 0 && r == Z_OK)
-      {
-        r = deflate(&zs, Z_NO_FLUSH);
-      }
-      
-      // If we have some output we write it to the io_sbuf's put area.
+      // We call deflate() until we _do_not_ fill the output buffer.
       //
-      std::streamsize n = zs.avail_out < z_out_buf.size();
-      if (n > 0)
-      {
-        io_sbuf->sputn(z_out_b, n);
+      //   - if do not fill the output buffer then deflate() _will_ have
+      //     consumed all input _or_ error.
 
+      // Decides whether we are to finalise the deflate/zlib/gzip stream.
+      //
+      bool is_eof = traits_type::eq_int_type(ch, traits_type::eof());
+      int flush = is_eof ? Z_FINISH : Z_NO_FLUSH;
+      
+      // pre-condition:
+      //
+      assert(zs.avail_out > 0);
+      do // do consume input until output buffer is full.
+      {
         zs.next_out = z_out_buf.begin();
         zs.avail_out = static_cast<unsigned>(z_out_buf.size());
+        
+        z_state = deflate(&zs, flush);
+        
+        io_sbuf->sputn(z_out_b, z_out_buf.size() - zs.avail_out);
       }
+      while // while the output buffer is full consume more input.
+        (zs.avail_out == 0);
       
-      // Assumes we have dealt with everything in the put buffer.
+      // post-condition:
+      //
+      assert(zs.avail_in == 0);
+
+      // Resets the our put buffer.
       //
       setp(z_in_b, z_in_e);
-      
-      return n;
     }
     
     std::streamsize inflate_buffer()
@@ -237,16 +252,6 @@ namespace dpj {
       //   - Runs inflate until we get some output.
       //   - Returns zero bytes if we get Z_STREAM_END.
       //
-      //
-      // This appears to be different to the method described here:
-      //
-      // http://zlib.net/zlib_how.html
-      //
-      // where inflate is called until the output buffer, (get_buf in our case), is
-      // full.
-      //
-      // The strategy here is to call inflate only until we get some output.
-      //
       while(z_out_buf.size() - zs.avail_out == 0)
       {
         if (z_state == Z_STREAM_END)
@@ -257,7 +262,7 @@ namespace dpj {
         
         if (zs.avail_in == 0)
         {
-          zs.avail_in = static_cast<unsigned>(io_sbuf->sgetn(z_in_b, BUF_SIZE));
+          zs.avail_in = static_cast<unsigned>(io_sbuf->sgetn(z_in_b, z_in_buf.size()));
           zs.next_in = z_in_buf.begin();
         }
         
@@ -284,20 +289,19 @@ namespace dpj {
       zs.zalloc = Z_NULL;
       zs.zfree = Z_NULL;
       zs.opaque = Z_NULL;
+      
+      zs.next_in = z_in_buf.begin();
+      zs.avail_in = 0;
+      
+      zs.next_out = z_out_buf.begin();
+      zs.avail_out = static_cast<unsigned>(z_out_buf.size());
     }
-    
     
     void inflate_init()
     {
       if (!done_init)
       {
         common_init();
-        
-        zs.next_in = z_in_buf.begin();
-        zs.avail_in = 0;
-        
-        zs.next_out = z_out_buf.begin();
-        zs.avail_out = static_cast<unsigned>(z_out_buf.size());
         
         // 15 + 32
         //
@@ -322,12 +326,6 @@ namespace dpj {
       if (!done_init)
       {
         common_init();
-
-        zs.next_in = z_in_buf.begin();
-        zs.avail_in = 0;
-
-        zs.next_out = z_out_buf.begin();
-        zs.avail_out = static_cast<unsigned>(z_out_buf.size());
         
         int window_bits = gzip_write_mode ? 15 + 16 : 15;
         
@@ -339,14 +337,13 @@ namespace dpj {
                              //
                              Z_DEFAULT_STRATEGY);
         
-        
         if (r != Z_OK)
           throw std::runtime_error("zstreambuf: failed in deflateInit2");
 
       }
     }
   };
-  
+
   typedef zstreambuf_t<> zstreambuf;
   
 }

@@ -18,6 +18,7 @@
 		2277A44218AD3468000BEA16 /* libdpj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2277A44118AD3468000BEA16 /* libdpj.a */; };
 		2277A44618AD34A4000BEA16 /* run_http_streambuf_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2277A44518AD34A4000BEA16 /* run_http_streambuf_test.cc */; };
 		2277A44A18ADA572000BEA16 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2277A44918ADA572000BEA16 /* libz.dylib */; };
+		229E849E18B6D1DF00F9626A /* hex_b64_convert.cc in Sources */ = {isa = PBXBuildFile; fileRef = 229E849C18B6D1DF00F9626A /* hex_b64_convert.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,8 @@
 		2277A44118AD3468000BEA16 /* libdpj.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdpj.a; path = ../../../lib/libdpj.a; sourceTree = "<group>"; };
 		2277A44518AD34A4000BEA16 /* run_http_streambuf_test.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = run_http_streambuf_test.cc; path = ../../bbi/run_http_streambuf_test.cc; sourceTree = "<group>"; };
 		2277A44918ADA572000BEA16 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		229E849C18B6D1DF00F9626A /* hex_b64_convert.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hex_b64_convert.cc; path = ../hex_b64_convert.cc; sourceTree = "<group>"; };
+		229E849D18B6D1DF00F9626A /* hex_b64_convert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hex_b64_convert.h; path = ../hex_b64_convert.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 		224C274E18AC01A2009971F4 = {
 			isa = PBXGroup;
 			children = (
+				229E849C18B6D1DF00F9626A /* hex_b64_convert.cc */,
+				229E849D18B6D1DF00F9626A /* hex_b64_convert.h */,
 				221FF91D18B0189D0073A332 /* test_text */,
 				221FF91E18B0189D0073A332 /* test_text.gz */,
 				2277A44918ADA572000BEA16 /* libz.dylib */,
@@ -209,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				229E849E18B6D1DF00F9626A /* hex_b64_convert.cc in Sources */,
 				224C275B18AC01A3009971F4 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

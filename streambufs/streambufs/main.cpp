@@ -9,6 +9,8 @@
 #include <vector>
 #include <list>
 
+#include "hex_b64_convert.h"
+
 int main(int argc, const char * argv[])
 {
   try {
@@ -81,22 +83,93 @@ int main(int argc, const char * argv[])
       std::cout << "all lines equal: " << all_true << '\n';
     }
     
-    std::stringstream iss;
-    
-    dpj::zstreambuf_t<16> ozbuf(iss.rdbuf(), std::ios_base::out);
-    
-    std::ostream os(&ozbuf);
-    
-    os << "zip this mofo. and this and this and this and this"
-          "zip this please. and that and there and here and then.";
+    {
+      // iss provides the output streambuf.
+      std::stringstream iss;
 
+      // this is our filtering zstreambuf
+      dpj::zstreambuf ozbuf{iss.rdbuf(), std::ios_base::out};
 
+      // provides an ostream interface for the filter.
+      std::ostream os{&ozbuf};
 
+      std::string data{"zip this mofo. and this and this and that."};
+      os << data;
+      os.flush();
+      
+      // oss provides an input streambuf.
+      std::stringstream oss{iss.str()};
+      
+      // this is our filter.
+      dpj::zstreambuf izbuf{oss.rdbuf()};
+
+      // provides an istream interface.
+      std::istream is{&izbuf};
+      
+      std::istreambuf_iterator<char> b(is);
+      std::istreambuf_iterator<char> e;
+      std::string tok{b, e};
+
+      std::cout << "data == tok: " << std::boolalpha << (data == tok) << '\n';
+      
+    }
     
-    os.flush();
+    std::string txt_str;
+    std::string txt_gz_str;
+    {
+      std::ifstream txt{"test_text"};
+      std::istreambuf_iterator<char> b{txt};
+      std::istreambuf_iterator<char> e;
+      txt_str.assign(b, e);
+    }
+    {
+      std::ifstream txt_gz{"test_text.gz"};
+      std::istreambuf_iterator<char> b{txt_gz};
+      std::istreambuf_iterator<char> e;
+      txt_gz_str.assign(b, e);
+    }
     
-    std::string s = iss.str();
+    std::ostringstream oss;
+    dpj::zstreambuf ozs(oss.rdbuf(), std::ios_base::out);
+    ozs.sputn(txt_str.data(), txt_str.size());
+    ozs.pubsync();
 
+    std::string str{oss.str()};
+
+    std::cout << "\nfirst bytes:\n";
+    // Look at first bytes minus the headers.
+    //
+    std::vector<uint8_t> cmpd{str.data(), str.data()+str.size()};
+    std::cout << "size of zstreambuf: " << cmpd.size() << '\n';
+    auto hex = bytes_to_hex(cmpd.begin(), cmpd.end());
+    std::cout << hex.substr(0, 100) << '\n';
+
+    cmpd.assign(txt_gz_str.data(), txt_gz_str.data() + txt_gz_str.size());
+    std::cout << "size of gzipped: " << cmpd.size() << '\n';
+    auto hex2 = bytes_to_hex(cmpd.begin(), cmpd.end());
+    std::cout << hex2.substr(0, 100)<< '\n';
+    
+    std::cout << "first bytes, (minus header), equal: " << std::boolalpha
+              << (hex.substr(4, 10) == hex2.substr(40, 10)) << '\n';
+    
+    std::cout << "\n\nlast bytes:\n";
+    // Look at final bytes.
+    //
+    cmpd.assign(str.data(), str.data() + str.size());
+    hex = bytes_to_hex(cmpd.begin(), cmpd.end());
+    std::cout << hex.substr(hex.size() - 100) << '\n';
+    hex = hex.substr(hex.size() - 108, 100);
+
+    cmpd.assign(txt_gz_str.data(), txt_gz_str.data() + txt_gz_str.size());
+    hex2 = bytes_to_hex(cmpd.begin(), cmpd.end());
+    std::cout << hex2.substr(hex2.size() - 100) << '\n';
+    hex2 = hex2.substr(hex2.size() - 116, 100);
+
+    std::cout << "last bytes, (minus trailer), equal: "
+              << std::boolalpha << (hex == hex2) << '\n';
+    
+    
+    
     
   } catch (std::exception& e) {
     std::cerr << "Exception: " << e.what() << '\n';

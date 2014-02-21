@@ -38,11 +38,8 @@ namespace dpj {
     char* z_in_e;
     char* z_out_b;
     char* z_out_e;
-
-  public:
     
-    zstreambuf_t(std::streambuf* io_sbuf, std::ios_base::openmode m = std::ios_base::in)
-    : mode(m), io_sbuf(io_sbuf)
+    void init()
     {
       // One can not static_cast<uint8_t*> to char*.
       //
@@ -62,19 +59,32 @@ namespace dpj {
         //
         // since at this stage there is no compressed data in the input buffer.
         //
-        inflate_init();
+        z_inflate_init();
       }
       else if (mode == std::ios_base::out)
       {
-
+        
         setp(z_in_b, z_in_e);
-        deflate_init();
+        z_deflate_init();
       }
       else
       {
         throw std::runtime_error("zstreambuf must be used exclusively in in or out mode");
       }
     }
+
+  public:
+    
+    zstreambuf_t(std::streambuf* io_sbuf, std::ios_base::openmode m = std::ios_base::in)
+    : mode(m), io_sbuf(io_sbuf) { init(); }
+    
+    
+    // TODO: provide stram interface. Note that we can be compressing or decompressing
+    // for input or output streams.
+    //
+
+    //    zstreambuf_t(std::istream& is) : mode(std::ios_base::out), io_sbuf(is.rdbuf()) { init(); }
+    //    zstreambuf_t(std::ostream& os) : mode(std::ios_base::in), io_sbuf(os.rdbuf()) { init(); }
     
     // Later, allow user to provide data to create a more complete gzip header.
     //
@@ -104,7 +114,7 @@ namespace dpj {
       }
 
       setp(z_in_b, z_in_e);
-      deflate_init();
+      z_deflate_init();
     }
     
   protected:
@@ -266,9 +276,7 @@ namespace dpj {
           zs.next_in = z_in_buf.begin();
         }
         
-        
-        while (zs.avail_in > 0 && zs.avail_out > 0 && z_state == Z_OK)
-          z_state = inflate(&zs, Z_NO_FLUSH);
+        z_state = inflate(&zs, Z_NO_FLUSH);
         
         
         if (z_state != Z_OK && z_state != Z_STREAM_END)
@@ -277,14 +285,15 @@ namespace dpj {
         }
         
       }
+      
       return z_out_buf.size() - zs.avail_out; // Number of bytes written to get_buf.
     }
-    
-    /// Initialisateion routines.
+        
+    /// zlib initialisateion routines.
     //
     //   - setup
     //
-    void common_init()
+    void z_common_init()
     {
       zs.zalloc = Z_NULL;
       zs.zfree = Z_NULL;
@@ -297,7 +306,7 @@ namespace dpj {
       zs.avail_out = static_cast<unsigned>(z_out_buf.size());
     }
     
-    void inflate_init()
+    void z_inflate_init()
     {
       if (!done_init)
       {
@@ -321,7 +330,7 @@ namespace dpj {
         done_init = true;
       }
     }
-    void deflate_init()
+    void z_deflate_init()
     {
       if (!done_init)
       {

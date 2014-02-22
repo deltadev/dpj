@@ -4,6 +4,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <iterator>
+
 #include "zstreambuf.hh"
 
 #include <vector>
@@ -11,13 +13,9 @@
 
 #include "hex_b64_convert.h"
 
-/// tests inflating a zlib compressed file.
-//
-bool test_inflate_zlib_file(std::ifstream& ifs, std::ifstream& truth)
-{
-//  dpj::zstreambuf zsbuf{ifs};
-  return true;
-}
+
+
+
 
 /// tests inflating a a block of zlib bytes.
 //
@@ -27,27 +25,85 @@ bool test_inflate_zlib_bytes(std::vector<uint8_t> const& bytes, std::string& tru
   return true;
 }
 
-/// tests deflating a zlib compressed file.
+typedef std::istreambuf_iterator<char> isb_it;
+
+/// tests inflating a zlib compressed file.
 //
-bool test_deflate_zlib_file(std::ifstream& ifs, std::ifstream& truth)
+bool test_decompress_gzip_file(std::string zfname, std::string fname)
 {
+
+  dpj::zifstream zifs{zfname}; // decompressor
+  std::ifstream  ifs{fname};
   
-  return true;
+  std::string zifs_str{isb_it{zifs}, isb_it{}};
+  std::string ifs_str{isb_it{ifs}, isb_it{}};
+
+  zifs.close();
+  ifs.close();
+  
+  return ifs_str == zifs_str;
+}
+
+/// tests deflating a file.
+//
+bool test_compress_gzip_file(std::string ref, std::string target)
+{
+  // Temporary file to receive our compression output.
+  //
+  {
+    dpj::zofstream zof{target+".gz"};
+    if (!zof.good())
+      throw std::runtime_error{"couldn't open file: "+target+".gz for writing."};
+    zof.rdbuf()->write_gzip_header(target, 3, false);
+    std::ifstream ifs{target};
+    if (!ifs.good())
+      throw std::runtime_error{"couldn't open file: "+target+" for reading."};
+    zof << ifs.rdbuf();
+    zof.flush();
+  }
+
+
+  // Open our reference compressed file.
+  // This file was made by:
+  // $ cp test_text zof_test_out && gzip zof_test_out && mv zof_test_out.gz zof_test_ref.gz
+  //
+  std::ifstream ifs_z{ref};
+  if (!ifs_z.good())
+    throw std::runtime_error{"couldn't open file: "+ref+".gz for reading."};
+  std::vector<uint8_t> ref_bytes{isb_it{ifs_z}, isb_it{}};
+  
+  // Reads in the file we wrote above.
+  //
+  std::ifstream zof_z{target+".gz"};
+  if (!zof_z.good())
+    throw std::runtime_error{"couldn't open file: "+target+".gz for reading."};
+
+  std::vector<uint8_t> target_bytes{isb_it{zof_z}, isb_it{}};
+
+  
+  // We'll set the unix time stamp the same.
+  //
+  target_bytes[4] = ref_bytes[4];
+  target_bytes[5] = ref_bytes[5];
+  target_bytes[6] = ref_bytes[6];
+  target_bytes[7] = ref_bytes[7];
+  
+  return ref_bytes == target_bytes;
 }
 
 /// tests deflating a string into zlib block of bytes.
 //
 bool test_deflate_zlib_string(std::string const& str, std::vector<uint8_t> const& bytes)
 {
-//  std::string byte_str{bytes.begin(), bytes.end()};
-//  std::istringstream iss{byte_str};
-//  
-//  dpj::zstreambuf zsbuf{iss};
-//  
-//  std::istreambuf_iterator<char> b{&zsbuf};
-//  std::istreambuf_iterator<char> e;
-//  
-  return true; //str == std::string(b, e);
+  std::string byte_str{bytes.begin(), bytes.end()};
+  std::istringstream iss{byte_str};
+  
+  dpj::zstreambuf zsbuf{iss.rdbuf(), dpj::zstreambuf::action::comp_zlib};
+  
+  std::istreambuf_iterator<char> b{&zsbuf};
+  std::istreambuf_iterator<char> e;
+  
+  return str == std::string(b, e);
 }
 
 int main(int argc, const char * argv[])
@@ -57,32 +113,11 @@ int main(int argc, const char * argv[])
     // Test 1 - test gunzip an entire file.
     //
     {
-      std::ifstream f("test_text");
-      if (!f.good())
-        throw std::runtime_error("couldn't open test_text");
-      
-      std::string original;
-      {
-        std::istreambuf_iterator<char> b(f);
-        std::istreambuf_iterator<char> e;
-        original.assign(b, e);
-      }
-      
-      
-      std::ifstream fz("test_text.gz");
-      if (!fz.good())
-        throw std::runtime_error("couldn't open test_text.gz");
-      
-      dpj::zstreambuf zbuf(fz.rdbuf());
-      std::string gunzipped;
-      {
-        std::istreambuf_iterator<char> b(&zbuf);
-        std::istreambuf_iterator<char> e;
-        gunzipped.assign(b, e);
-      }
-      
-      std::cout << "equal outputs: ";
-      std::cout << std::boolalpha << (original == gunzipped) << '\n';
+      std::cout << "test_decompress_zlib_file: ";
+      std::cout << std::boolalpha << test_decompress_gzip_file("test_text.gz", "test_text") << '\n';
+
+      std::cout << "test_compress_zlib_file: ";
+      std::cout << std::boolalpha << test_compress_gzip_file("zof_ref.gz", "zof_target") << '\n';
     }
     
     
@@ -97,7 +132,7 @@ int main(int argc, const char * argv[])
       if (!fz.good())
         throw std::runtime_error("couldn't open test_text.gz");
       
-      dpj::zstreambuf zbuf(fz.rdbuf());
+      dpj::zstreambuf zbuf{fz.rdbuf(), dpj::zstreambuf::action::decomp_zlib};
       std::istream zs(&zbuf);
       
       bool all_true = true;
@@ -127,7 +162,7 @@ int main(int argc, const char * argv[])
       std::stringstream iss;
 
       // this is our filtering zstreambuf
-      dpj::zstreambuf ozbuf{iss.rdbuf(), std::ios_base::out};
+      dpj::zstreambuf ozbuf{iss.rdbuf(), dpj::zstreambuf::action::comp_zlib};
 
       // provides an ostream interface for the filter.
       std::ostream os{&ozbuf};
@@ -140,7 +175,7 @@ int main(int argc, const char * argv[])
       std::stringstream oss{iss.str()};
       
       // this is our filter.
-      dpj::zstreambuf izbuf{oss.rdbuf()};
+      dpj::zstreambuf izbuf{oss.rdbuf(), dpj::zstreambuf::action::decomp_zlib};
 
       // provides an istream interface.
       std::istream is{&izbuf};
@@ -169,7 +204,7 @@ int main(int argc, const char * argv[])
     }
     
     std::ostringstream oss;
-    dpj::zstreambuf ozs(oss.rdbuf(), std::ios_base::out);
+    dpj::zstreambuf ozs(oss.rdbuf(), dpj::zstreambuf::action::comp_zlib);
     ozs.sputn(txt_str.data(), txt_str.size());
     ozs.pubsync();
 

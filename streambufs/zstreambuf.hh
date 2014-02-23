@@ -3,10 +3,14 @@
 
 #include <zlib.h>
 
-#include <streambuf>
-#include <array>
-
 #include <cassert>
+
+#include <streambuf>
+#include <istream>
+#include <ostream>
+#include <fstream>
+
+#include <array>
 
 namespace dpj {
   
@@ -34,8 +38,7 @@ namespace dpj {
     
     // underflow()
     //
-    //   - this method replenishes the get area when we've run out of decompressed
-    //     data. This is for decompression; hence it calls the inflate_buffer() method.
+    //   - decompresses data, fills get area.
     //
     int_type underflow()
     {
@@ -54,8 +57,7 @@ namespace dpj {
     
     /// overflow()
     //
-    //   - this method deals with the situation where we have filled the input buffer
-    //     and we need to deflate what is there to make room for more input.
+    //   - compresses data, creates space in put area.
     //
     int_type overflow(int_type ch)
     {
@@ -67,7 +69,7 @@ namespace dpj {
         {
           deflate_buffer(ch);
           setp(z_in_b, z_in_e);
-          return ch;
+          return sputc(ch);
         }
       }
       else
@@ -94,16 +96,14 @@ namespace dpj {
     }
     
   private:
+    action mode;
 
     struct gz_header_info
     {
       std::string file_name, comment;
       gz_header h;
     };
-    gz_header_info hdr;
-
-    action mode;
-    
+    gz_header_info hdr;    
     z_stream zs;
     int z_state = Z_OK;
     
@@ -185,7 +185,8 @@ namespace dpj {
         throw std::runtime_error("zstreambuf::z_deflate_init() failed.");
     }
     
-    /// Pushes whatever is in our put area into the zstream.
+
+    /// Pushes from put area to zstream.
     //
     //    - we might be called by overflow, in this case ch will be equal to either,
     //
@@ -196,6 +197,9 @@ namespace dpj {
     //
     void deflate_buffer(int_type ch)
     {
+      bool is_eof = traits_type::eq_int_type(ch, traits_type::eof());
+      int flush = is_eof ? Z_FINISH : Z_NO_FLUSH;
+  
       // Everything in the put area is available.
       //
       zs.avail_in = static_cast<unsigned>(pptr() - pbase());
@@ -204,51 +208,40 @@ namespace dpj {
       // We call deflate() until we _do_not_ fill the output buffer.
       //
       //   - if do not fill the output buffer then deflate() _will_ have
-      //     consumed all input _or_ error.
-      
-      // Decides whether we are to finalise the deflate/zlib/gzip stream.
-      //
-      bool is_eof = traits_type::eq_int_type(ch, traits_type::eof());
-      int flush = is_eof ? Z_FINISH : Z_NO_FLUSH;
-      
-      // pre-condition:
-      //
-      assert(zs.avail_out > 0);
-      do // do consume input until output buffer is full.
+      //     consumed all input _or_ error.    
+      do
       {
         zs.next_out = z_out_buf.begin();
         zs.avail_out = static_cast<unsigned>(z_out_buf.size());
         
         z_state = deflate(&zs, flush);
-        
         io_sbuf->sputn(z_out_b, z_out_buf.size() - zs.avail_out);
       }
-      while // while the output buffer is full consume more input.
+      while
         (zs.avail_out == 0);
       
-      // post-condition:
-      //
-      assert(zs.avail_in == 0);
-      
-      // Resets the our put buffer.
-      //
+      if (z_state != Z_OK && z_state != Z_STREAM_END)
+      {
+        std::string message{"zlib_streambuf::deflate_buffer: "};
+        message.append(zError(z_state));
+        throw std::runtime_error{message};
+      }
+
       setp(z_in_b, z_in_e);
     }
-    
+
+    /// Pulls from zstream to fill get area.
+    //
+    //   - Runs inflate until we get some output.
+    //   - Returns zero bytes if we get Z_STREAM_END.
+    //    
     std::streamsize inflate_buffer()
     {
-      // Assumes the get buffer is exhausted.
-      //
       // underflow() only calls this method when gptr() == egptr().
       //
       zs.next_out = z_out_buf.begin();
       zs.avail_out = static_cast<unsigned>(z_out_buf.size());
       
-      // inflate()
-      //
-      //   - Runs inflate until we get some output.
-      //   - Returns zero bytes if we get Z_STREAM_END.
-      //
       while(z_out_buf.size() - zs.avail_out == 0)
       {
         if (z_state == Z_STREAM_END)
@@ -265,19 +258,52 @@ namespace dpj {
         z_state = inflate(&zs, Z_NO_FLUSH);
         
         if (z_state != Z_OK && z_state != Z_STREAM_END)
-          throw std::runtime_error("zlib_streambuf::inflate_buffer: "+std::string(zError(z_state)));
+        {
+          std::string message{"zlib_streambuf::inflate_buffer: "};
+          message.append(zError(z_state));
+          throw std::runtime_error{message};
+        }
       }
       return z_out_buf.size() - zs.avail_out; // Number of bytes written to get_buf.
     }
   };
+
+  inline
+  void zstreambuf::write_gzip_header(std::string const& fname, int os, bool tag)
+  {
+    hdr.h.text = 0;         // Agnostic.
+    hdr.h.time = time(nullptr);
+    hdr.h.os = os;
+    hdr.h.extra = Z_NULL;
+    
+    hdr.file_name = fname;
+    hdr.file_name.append(1, '\0');
+    hdr.h.name = (uint8_t*)hdr.file_name.data();
+    
+    hdr.comment = "written by dpj::zstreambuf";
+    hdr.comment.append(1, '\0');
+    
+    if (tag)
+      hdr.h.comment = (uint8_t*)hdr.comment.data();
+    else
+      hdr.h.comment = Z_NULL;
+    
+    hdr.h.hcrc = 0; // no CRC at the mo.
+    
+    int r = deflateSetHeader(&zs, &hdr.h);
+    if (!r == Z_OK)
+      throw std::runtime_error("zstreambuf: couldn't write gzip header");
+    
+  }
   
   class zifstream : public std::istream
   {
-    typedef zstreambuf::action action;
   public:
-    zifstream() : sb{fs.rdbuf() , action::decomp_zlib}, std::istream{&sb} { }
+    typedef zstreambuf::action action;
+
+    zifstream(action a = action::decomp_zlib) : sb{fs.rdbuf() , a}, std::istream{&sb} { }
     
-    zifstream(std::string const& s)
+    zifstream(std::string const& s, action a = action::decomp_zlib)
     : sb{fs.rdbuf() , action::decomp_zlib}, std::istream{&sb} { fs.open(s); }
     
     zstreambuf* rdbuf() const { return const_cast<zstreambuf*>(&sb); }
@@ -307,11 +333,15 @@ namespace dpj {
   
   class zofstream : public std::ostream
   {
-    typedef zstreambuf::action action;
   public:
+    typedef zstreambuf::action action;
+
+    zofstream(action a = action::comp_gzip) : sb{fs.rdbuf(), a} { }
+    
     zofstream() : sb{fs.rdbuf() , action::comp_gzip}, std::ostream{&sb} { }
     
-    zofstream(std::string const& s) : sb{fs.rdbuf(), action::comp_gzip} , std::ostream{&sb}
+    zofstream(std::string const& s, action a = action::comp_gzip)
+    : sb{fs.rdbuf(), a} , std::ostream{&sb}
     { fs.open(s); }
     
     zstreambuf* rdbuf() const { return const_cast<zstreambuf*>(&sb); }
@@ -338,33 +368,8 @@ namespace dpj {
   };
   
 
-  void zstreambuf::write_gzip_header(std::string const& fname, int os, bool tag)
-  {
-    hdr.h.text = 0;         // Agnostic.
-    hdr.h.time = time(nullptr);
-    hdr.h.os = os;
-    hdr.h.extra = Z_NULL;
-    
-    hdr.file_name = fname;
-    hdr.file_name.append(1, '\0');
-    hdr.h.name = (uint8_t*)hdr.file_name.data();
-    
-    hdr.comment = "written by dpj::zstreambuf";
-    hdr.comment.append(1, '\0');
-    
-    if (tag)
-      hdr.h.comment = (uint8_t*)hdr.comment.data();
-    else
-      hdr.h.comment = Z_NULL;
-        
-    hdr.h.hcrc = 0; // no CRC at the mo.
-        
-    int r = deflateSetHeader(&zs, &hdr.h);
-    if (!r == Z_OK)
-      throw std::runtime_error("zstreambuf: couldn't write gzip header");
 
-  }
 
 }
 
-#endif /* _ZLIB_STREAMBUF_HH_ */
+#endif /* _ZSTREAMBUF_HH_ */

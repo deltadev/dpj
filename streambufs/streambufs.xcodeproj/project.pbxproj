@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		221FF91F18B0189D0073A332 /* test_text in CopyFiles */ = {isa = PBXBuildFile; fileRef = 221FF91D18B0189D0073A332 /* test_text */; };
 		221FF92018B0189D0073A332 /* test_text.gz in CopyFiles */ = {isa = PBXBuildFile; fileRef = 221FF91E18B0189D0073A332 /* test_text.gz */; };
-		224C275B18AC01A3009971F4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 224C275A18AC01A3009971F4 /* main.cpp */; };
+		224C275B18AC01A3009971F4 /* zstreambuf_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 224C275A18AC01A3009971F4 /* zstreambuf_test.cc */; };
 		224C275D18AC01A3009971F4 /* streambufs.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 224C275C18AC01A3009971F4 /* streambufs.1 */; };
 		2277A43518AD33D1000BEA16 /* http_streambuf.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2277A43418AD33D1000BEA16 /* http_streambuf.1 */; };
 		2277A43E18AD3401000BEA16 /* http_session.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2277A43918AD3401000BEA16 /* http_session.cc */; };
@@ -19,6 +19,9 @@
 		2277A44618AD34A4000BEA16 /* run_http_streambuf_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2277A44518AD34A4000BEA16 /* run_http_streambuf_test.cc */; };
 		2277A44A18ADA572000BEA16 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2277A44918ADA572000BEA16 /* libz.dylib */; };
 		229E849E18B6D1DF00F9626A /* hex_b64_convert.cc in Sources */ = {isa = PBXBuildFile; fileRef = 229E849C18B6D1DF00F9626A /* hex_b64_convert.cc */; };
+		22CA0FD718B8420B00A5B553 /* zof_ref.gz in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22CA0FD618B8420B00A5B553 /* zof_ref.gz */; };
+		22CA0FD918B842A000A5B553 /* zof_target in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22CA0FD818B842A000A5B553 /* zof_target */; };
+		22CA0FE118BA4AC200A5B553 /* run_streambuf_tests.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22CA0FDF18BA4AC200A5B553 /* run_streambuf_tests.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +41,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				22CA0FD918B842A000A5B553 /* zof_target in CopyFiles */,
+				22CA0FD718B8420B00A5B553 /* zof_ref.gz in CopyFiles */,
 				221FF91F18B0189D0073A332 /* test_text in CopyFiles */,
 				221FF92018B0189D0073A332 /* test_text.gz in CopyFiles */,
 			);
@@ -59,7 +64,7 @@
 		221FF91D18B0189D0073A332 /* test_text */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_text; sourceTree = "<group>"; };
 		221FF91E18B0189D0073A332 /* test_text.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = test_text.gz; sourceTree = "<group>"; };
 		224C275718AC01A3009971F4 /* streambufs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = streambufs; sourceTree = BUILT_PRODUCTS_DIR; };
-		224C275A18AC01A3009971F4 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		224C275A18AC01A3009971F4 /* zstreambuf_test.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = zstreambuf_test.cc; sourceTree = "<group>"; };
 		224C275C18AC01A3009971F4 /* streambufs.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = streambufs.1; sourceTree = "<group>"; };
 		224C276318AC01CC009971F4 /* zstreambuf.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = zstreambuf.hh; sourceTree = SOURCE_ROOT; };
 		2277A43018AD33D1000BEA16 /* http_streambuf */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = http_streambuf; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +79,11 @@
 		2277A44918ADA572000BEA16 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		229E849C18B6D1DF00F9626A /* hex_b64_convert.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hex_b64_convert.cc; path = ../hex_b64_convert.cc; sourceTree = "<group>"; };
 		229E849D18B6D1DF00F9626A /* hex_b64_convert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hex_b64_convert.h; path = ../hex_b64_convert.h; sourceTree = "<group>"; };
+		22CA0FD618B8420B00A5B553 /* zof_ref.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = zof_ref.gz; sourceTree = "<group>"; };
+		22CA0FD818B842A000A5B553 /* zof_target */ = {isa = PBXFileReference; lastKnownFileType = text; path = zof_target; sourceTree = "<group>"; };
+		22CA0FDA18B9821C00A5B553 /* test_bin */ = {isa = PBXFileReference; lastKnownFileType = file; path = test_bin; sourceTree = "<group>"; };
+		22CA0FDF18BA4AC200A5B553 /* run_streambuf_tests.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = run_streambuf_tests.cc; sourceTree = "<group>"; };
+		22CA0FE018BA4AC200A5B553 /* zstreambuf_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zstreambuf_test.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,9 @@
 		224C274E18AC01A2009971F4 = {
 			isa = PBXGroup;
 			children = (
+				22CA0FDA18B9821C00A5B553 /* test_bin */,
+				22CA0FD818B842A000A5B553 /* zof_target */,
+				22CA0FD618B8420B00A5B553 /* zof_ref.gz */,
 				229E849C18B6D1DF00F9626A /* hex_b64_convert.cc */,
 				229E849D18B6D1DF00F9626A /* hex_b64_convert.h */,
 				221FF91D18B0189D0073A332 /* test_text */,
@@ -123,8 +136,10 @@
 		224C275918AC01A3009971F4 /* streambufs */ = {
 			isa = PBXGroup;
 			children = (
+				22CA0FDF18BA4AC200A5B553 /* run_streambuf_tests.cc */,
+				22CA0FE018BA4AC200A5B553 /* zstreambuf_test.h */,
 				224C276318AC01CC009971F4 /* zstreambuf.hh */,
-				224C275A18AC01A3009971F4 /* main.cpp */,
+				224C275A18AC01A3009971F4 /* zstreambuf_test.cc */,
 				224C275C18AC01A3009971F4 /* streambufs.1 */,
 			);
 			path = streambufs;
@@ -154,6 +169,7 @@
 				224C275318AC01A3009971F4 /* Sources */,
 				224C275418AC01A3009971F4 /* Frameworks */,
 				224C275518AC01A3009971F4 /* CopyFiles */,
+				22CA0FD518B83CCA00A5B553 /* ShellScript */,
 				224C276518AC1961009971F4 /* CopyFiles */,
 			);
 			buildRules = (
@@ -209,13 +225,30 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		22CA0FD518B83CCA00A5B553 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -f *.gz && cp test_text zof_target && gzip -k test_text && gzip -c zof_target > zof_ref.gz";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		224C275318AC01A3009971F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				229E849E18B6D1DF00F9626A /* hex_b64_convert.cc in Sources */,
-				224C275B18AC01A3009971F4 /* main.cpp in Sources */,
+				22CA0FE118BA4AC200A5B553 /* run_streambuf_tests.cc in Sources */,
+				224C275B18AC01A3009971F4 /* zstreambuf_test.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

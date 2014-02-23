@@ -1,2 +1,7 @@
 *.o
 utils-tests/main
+
+# ignores for streambuf project
+test_bin
+test_text
+zof_target

@@ -22,9 +22,9 @@ namespace dpj
     bool dtor_prints = true;
     
     timer_base(std::string msg = "", std::ostream& os = std::cerr)
-    : msg(msg)
-    , os(os.rdbuf())
-    { t0 = clk_t::now(); t1 = t0; }
+      : msg{msg}
+      , os{os.rdbuf()}
+      { t0 = clk_t::now(); t1 = t0; }
 
     Duration elapsed()
     {

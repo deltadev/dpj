@@ -29,6 +29,8 @@ bool operator==(test_data const& d1, test_data const& d2);
 
 bool test_decompress_gzip_file(std::string zfname, std::string fname);
 bool test_decompress_read_tokens(std::string zfname, std::string fname);
+bool test_aifstream_read_tokens(std::string zfname, std::string fname);
+
 bool test_decompress_objects(std::string ref, unsigned n);
 bool test_compress_objects();
 bool test_deflate_zlib_string(std::string const& str, std::vector<uint8_t> const& bytes);

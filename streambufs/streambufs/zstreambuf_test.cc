@@ -87,6 +87,28 @@ bool test_decompress_read_tokens(std::string zfname, std::string fname)
   
   return all_true;
 }
+
+bool test_aifstream_read_tokens(std::string zfname, std::string fname)
+{
+  dpj::aifstream ifs{fname};
+  dpj::aifstream zifs{zfname};
+  
+  std::string tok1, tok2;
+  
+  bool all_true = true;
+  while (ifs >> tok1)
+  {
+    zifs >> tok2;
+    all_true = all_true && tok1 == tok2;
+  }
+  zifs >> tok2;
+  
+  all_true = zifs.rdstate() == ifs.rdstate();
+  
+  return all_true;
+}
+
+
 bool test_decompress_objects(std::string ref, unsigned n)
 {
   bool all_true = true;
@@ -201,3 +223,5 @@ bool test_deflate_zlib_string(std::string const& str, std::vector<uint8_t> const
   
   return str == std::string(b, e);
 }
+
+

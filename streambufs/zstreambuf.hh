@@ -30,7 +30,7 @@ namespace dpj {
 
   public:
     
-    zstreambuf(std::streambuf* io_sbuf, action a) : mode(a), io_sbuf(io_sbuf) { init(); }
+    zstreambuf(std::streambuf* sbuf, action a) : mode(a), next_sb(sbuf) { init(); }
     
     void write_gzip_header(std::string const& fname, int os = 3, bool tag = true);
     
@@ -107,8 +107,7 @@ namespace dpj {
     z_stream zs;
     int z_state = Z_OK;
     
-    std::streambuf* io_sbuf;
-    
+    std::streambuf* next_sb;
     std::array<unsigned char, BUF_SIZE> z_in_buf;
     std::array<unsigned char, BUF_SIZE> z_out_buf;
     
@@ -215,7 +214,7 @@ namespace dpj {
         zs.avail_out = static_cast<unsigned>(z_out_buf.size());
         
         z_state = deflate(&zs, flush);
-        io_sbuf->sputn(z_out_b, z_out_buf.size() - zs.avail_out);
+        next_sb->sputn(z_out_b, z_out_buf.size() - zs.avail_out);
       }
       while
         (zs.avail_out == 0);
@@ -252,7 +251,7 @@ namespace dpj {
         
         if (zs.avail_in == 0)
         {
-          zs.avail_in = static_cast<unsigned>(io_sbuf->sgetn(z_in_b, z_in_buf.size()));
+          zs.avail_in = static_cast<unsigned>(next_sb->sgetn(z_in_b, z_in_buf.size()));
           zs.next_in = z_in_buf.begin();
         }
         z_state = inflate(&zs, Z_NO_FLUSH);
@@ -313,9 +312,9 @@ namespace dpj {
     {
       fs.open(s);
       if (fs.is_open())
-        this->clear();
+        clear();
       else
-        this->setstate(ios_base::failbit);
+        setstate(ios_base::failbit);
     }
     void close()
     {
@@ -328,6 +327,54 @@ namespace dpj {
   private:
     zstreambuf sb;
     std::ifstream fs;
+  };
+  
+  class aifstream : public std::istream
+  {
+  public:
+    typedef zstreambuf::action action;
+    
+    aifstream(std::string const& s) : std::istream{ifs.rdbuf()}
+    {
+      ifs.open(s);
+      if (ifs.get() == 0x1f && ifs.peek() == 0x8b)
+      {
+        zsb.reset(new dpj::zstreambuf{ifs.rdbuf(), action::decomp_zlib});
+        std::istream::rdbuf(zsb.get());
+      }
+      ifs.unget();
+      ifs.clear();
+    }
+    
+    std::streambuf* rdbuf() const
+    {
+      if (zsb)
+        return const_cast<dpj::zstreambuf*>(zsb.get());
+      else
+        return const_cast<std::filebuf*>(ifs.rdbuf());
+    }
+    
+    bool is_open() { return ifs.is_open(); }
+    void open(std::string const& s)
+    {
+      ifs.open(s);
+      if (ifs.is_open())
+        clear();
+      else
+        setstate(ios_base::failbit);
+    }
+    void close()
+    {
+      if (zsb)
+        zsb.get()->pubsync();
+      ifs.close();
+    }
+    
+    ~aifstream() { close(); }
+    
+  private:
+    std::unique_ptr<dpj::zstreambuf> zsb;
+    std::ifstream ifs;
   };
   
   
@@ -351,9 +398,9 @@ namespace dpj {
     {
       fs.open(s);
       if (fs.is_open())
-        this->clear();
+        clear();
       else
-        this->setstate(ios_base::failbit);
+        setstate(ios_base::failbit);
     }
     void close()
     {
@@ -367,8 +414,6 @@ namespace dpj {
     std::ofstream fs;
   };
   
-
-
 
 }
 

@@ -3,7 +3,8 @@
 
 #include <string>
 #include <vector>
-#include <iostream>
+
+#include <chrono>
 
 // Outputs a string of length s.size() that is the nth element of the
 // lexicographical ordering of strings from the alphabet {A, C, G, T}.
@@ -28,13 +29,6 @@ std::vector<float> readPWM(std::istream& is, bool rowMajorStorage = false);
 
 std::string readFasta(std::string fileName);
 
-
-
-namespace dpj {
-  namespace str {
-    std::string strip(std::string s);
-  }  
-}
 
 #include "dpj_utils.hh"
 

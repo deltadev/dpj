@@ -12,7 +12,7 @@ utils-tests/main: utils-tests/tests.cpp
 
 copy:
 	cp dpj_utils.h dpj_utils.hh histogram.hh indexer.hh order.hh \
-           prettyprint.hpp stats.hh $(HOME)/include/
+           prettyprint.hpp stats.hh timer.hh $(HOME)/include/
 run_test: 
 	cd utils-tests && $(MAKE)
 clean:

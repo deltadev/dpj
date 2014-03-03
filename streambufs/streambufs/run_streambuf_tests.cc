@@ -13,7 +13,10 @@ int main(int argc, const char * argv[])
     
     std::cout << "test_decompress_read_tokens: ";
     std::cout << std::boolalpha << test_decompress_read_tokens("test_text.gz", "test_text") << '\n';
-        
+    
+    std::cout << "test_aifstream_read_tokens: ";
+    std::cout << std::boolalpha << test_aifstream_read_tokens("test_text.gz", "test_text") << '\n';
+    
     std::cout << "test_compress_gzip_file: ";
     std::cout << std::boolalpha << test_compress_gzip_file("zof_ref.gz", "zof_target") << '\n';
     

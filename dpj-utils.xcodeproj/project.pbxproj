@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		2274FC7F16FA8CD6001FE84B /* prettyprint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */; };
+		228AC8DE18C7942E00B34515 /* min_window.cc in Sources */ = {isa = PBXBuildFile; fileRef = 228AC8DD18C7942E00B34515 /* min_window.cc */; };
 		22B5BA7618C4CE2F002443A7 /* hex_b64_convert.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22B5BA6C18C4CE2F002443A7 /* hex_b64_convert.cc */; };
 		22B5BA7718C4CE2F002443A7 /* hex_b64_convert.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA6D18C4CE2F002443A7 /* hex_b64_convert.h */; };
 		22B5BA7818C4CE2F002443A7 /* histogram.hh in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA6E18C4CE2F002443A7 /* histogram.hh */; };
 		22B5BA7918C4CE2F002443A7 /* indexer.hh in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA6F18C4CE2F002443A7 /* indexer.hh */; };
-		22B5BA7A18C4CE2F002443A7 /* min_window.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22B5BA7018C4CE2F002443A7 /* min_window.cc */; };
 		22B5BA7B18C4CE2F002443A7 /* net.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22B5BA7118C4CE2F002443A7 /* net.cc */; };
 		22B5BA7C18C4CE2F002443A7 /* net.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA7218C4CE2F002443A7 /* net.h */; };
 		22B5BA7D18C4CE2F002443A7 /* order.hh in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA7318C4CE2F002443A7 /* order.hh */; };
 		22B5BA7E18C4CE2F002443A7 /* stats.hh in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA7418C4CE2F002443A7 /* stats.hh */; };
 		22B5BA7F18C4CE2F002443A7 /* timer.hh in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA7518C4CE2F002443A7 /* timer.hh */; };
 		22B5BA8918C4CE42002443A7 /* algorithms.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22B5BA8818C4CE42002443A7 /* algorithms.1 */; };
-		22B5BA8D18C4CE74002443A7 /* min_window.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22B5BA7018C4CE2F002443A7 /* min_window.cc */; };
+		22B5BA9018C78555002443A7 /* heaps.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22B5BA8E18C78555002443A7 /* heaps.cc */; };
+		22B5BA9318C78781002443A7 /* main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22B5BA9118C78781002443A7 /* main.cc */; };
+		22B5BA9718C78A1F002443A7 /* instrumented.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22B5BA9518C78A1F002443A7 /* instrumented.cpp */; };
 		22C5487514BF25E900C12F29 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22C5487414BF25E900C12F29 /* main.cpp */; };
 		22C5487714BF25E900C12F29 /* utils_tests.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22C5487614BF25E900C12F29 /* utils_tests.1 */; };
 		22C5487B14BF25FC00C12F29 /* libdpj-utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C5486014BF253200C12F29 /* libdpj-utils.a */; };
@@ -74,11 +76,13 @@
 
 /* Begin PBXFileReference section */
 		2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = prettyprint.hpp; sourceTree = "<group>"; };
+		228AC8DD18C7942E00B34515 /* min_window.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = min_window.cc; sourceTree = "<group>"; };
+		228AC8DF18C798D600B34515 /* algo.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algo.hh; sourceTree = "<group>"; };
+		228AC8E018C7991200B34515 /* min_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = min_window.h; sourceTree = "<group>"; };
 		22B5BA6C18C4CE2F002443A7 /* hex_b64_convert.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hex_b64_convert.cc; sourceTree = "<group>"; };
 		22B5BA6D18C4CE2F002443A7 /* hex_b64_convert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hex_b64_convert.h; sourceTree = "<group>"; };
 		22B5BA6E18C4CE2F002443A7 /* histogram.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = histogram.hh; sourceTree = "<group>"; };
 		22B5BA6F18C4CE2F002443A7 /* indexer.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = indexer.hh; sourceTree = "<group>"; };
-		22B5BA7018C4CE2F002443A7 /* min_window.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = min_window.cc; path = ../min_window.cc; sourceTree = "<group>"; };
 		22B5BA7118C4CE2F002443A7 /* net.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = net.cc; sourceTree = "<group>"; };
 		22B5BA7218C4CE2F002443A7 /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = net.h; sourceTree = "<group>"; };
 		22B5BA7318C4CE2F002443A7 /* order.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = order.hh; sourceTree = "<group>"; };
@@ -86,6 +90,11 @@
 		22B5BA7518C4CE2F002443A7 /* timer.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = timer.hh; sourceTree = "<group>"; };
 		22B5BA8418C4CE42002443A7 /* algorithms */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = algorithms; sourceTree = BUILT_PRODUCTS_DIR; };
 		22B5BA8818C4CE42002443A7 /* algorithms.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = algorithms.1; sourceTree = "<group>"; };
+		22B5BA8E18C78555002443A7 /* heaps.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = heaps.cc; sourceTree = "<group>"; };
+		22B5BA8F18C78555002443A7 /* heaps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = heaps.h; sourceTree = "<group>"; };
+		22B5BA9118C78781002443A7 /* main.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cc; sourceTree = "<group>"; };
+		22B5BA9518C78A1F002443A7 /* instrumented.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = instrumented.cpp; sourceTree = "<group>"; };
+		22B5BA9618C78A1F002443A7 /* instrumented.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = instrumented.h; sourceTree = "<group>"; };
 		22C5486014BF253200C12F29 /* libdpj-utils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libdpj-utils.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C5487114BF25E900C12F29 /* utils-tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "utils-tests"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C5487414BF25E900C12F29 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -126,8 +135,15 @@
 		22B5BA8518C4CE42002443A7 /* algorithms */ = {
 			isa = PBXGroup;
 			children = (
-				22B5BA7018C4CE2F002443A7 /* min_window.cc */,
+				228AC8DF18C798D600B34515 /* algo.hh */,
+				228AC8E018C7991200B34515 /* min_window.h */,
+				228AC8DD18C7942E00B34515 /* min_window.cc */,
+				22B5BA9518C78A1F002443A7 /* instrumented.cpp */,
+				22B5BA9618C78A1F002443A7 /* instrumented.h */,
+				22B5BA9118C78781002443A7 /* main.cc */,
 				22B5BA8818C4CE42002443A7 /* algorithms.1 */,
+				22B5BA8E18C78555002443A7 /* heaps.cc */,
+				22B5BA8F18C78555002443A7 /* heaps.h */,
 			);
 			path = algorithms;
 			sourceTree = "<group>";
@@ -285,7 +301,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22B5BA8D18C4CE74002443A7 /* min_window.cc in Sources */,
+				228AC8DE18C7942E00B34515 /* min_window.cc in Sources */,
+				22B5BA9318C78781002443A7 /* main.cc in Sources */,
+				22B5BA9018C78555002443A7 /* heaps.cc in Sources */,
+				22B5BA9718C78A1F002443A7 /* instrumented.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +313,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22B5BA7B18C4CE2F002443A7 /* net.cc in Sources */,
-				22B5BA7A18C4CE2F002443A7 /* min_window.cc in Sources */,
 				22B5BA7618C4CE2F002443A7 /* hex_b64_convert.cc in Sources */,
 				22E431191802F754001C0775 /* dpj_utils.cc in Sources */,
 				22DD8EE414E001D900AB16B6 /* tests.cpp in Sources */,
@@ -475,6 +493,7 @@
 				22B5BA8C18C4CE42002443A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		22C5485A14BF253200C12F29 /* Build configuration list for PBXProject "dpj-utils" */ = {
 			isa = XCConfigurationList;

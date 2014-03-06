@@ -13,7 +13,7 @@ namespace dpj
 {
   namespace str {
 
-    std::string strip(std::string s)
+    inline std::string strip(std::string s)
     {
       auto fnb = s.find_first_not_of(" \r\n\t");
       auto lnb = s.find_last_not_of(" \r\n\t");

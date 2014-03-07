@@ -2,77 +2,119 @@
 #define _DPJ_CQ_HH_
 
 #include <vector>
+#include <iterator>
 
-// TODO: template on type and size of underlying array.
-//
+
+template <typename T, std::size_t buf_size = 16>
 class cq
 {
-  static const std::size_t size = 10;
-  std::array<int, size> buf;
+  std::array<T, buf_size> buf{{T{}}};
 
-  std::size_t base;
-  std::size_t pos;
-public:
-  typedef int value_type;
-
-  cq()
-  {
-    buf.fill(0);
-    base = 0;
-    pos = 0;
-  }
+  std::size_t base = 0;
+  std::size_t pos  = 0;
+  bool move_base = false; // Tells us whether the buffer is full.
   
-  // pre-condition and post-condition of operations is
+public:
+  cq() { }
+
+  // Queue interface.
   //
-  //   * base \in [0, size)
-  //   * pos  \in [0, size)
-  //   * buf[pos] is the next available put slot.
+  //   A pre-condition and post-condition of operations is
   //
-  void push_back(int i)
+  //     * base \in [0, size)
+  //     * pos  \in [0, size)
+  //
+  //     * The current range of elements is:
+  //
+  //       a) [base, pos)
+  //       b) [base, size) \union [0, pos)
+  //
+  //       The case base == pos needs to be dealt with differently
+  //       in each of these cases when calling push_back.
+  //
+  //     * buf[pos] is the next available put slot.
+  //
+  void push_back(T i)
   {
+    if (move_base)
+      base = (base + 1) % buf_size;
+    
     buf[pos] = i;
-    pos = (pos + 1) % size;
-    if (pos == base)
-      pop_front();
+    pos = (pos + 1) % buf_size;
+
+    if (pos == base) // We just caught up with ourselves.
+      move_base = true;
   }
-  int pop_front()
+  T pop_front()
   {
-    int r = buf[base];
-    base = (base + 1) % size;
+    T r = buf[base];
+    base = (base + 1) % buf_size;
+    move_base = false;
     return r;
   }
-  int& front() { return buf[base]; }
-  int const& front() const { return buf[base]; }
-  int & back() { return buf[(pos + size - 1) % size]; }
-  int const& back() const { return buf[(pos + size - 1) % size]; }
-
-  struct iterator
+  T pop_back()
   {
-    int* first;
+    pos = (pos + buf_size - 1) % buf_size;
+    move_base = false;
+    return buf[pos];
+  }
+  
+  std::size_t size()
+  {
+    if (pos == base && move_base == false)
+      return 0;
+    else
+      return pos > base ? pos - base : buf_size - base + pos;
+  }
+  
+  
+  // Element access
+  //
+  T&       front()       { return buf[base]; }
+  T const& front() const { return buf[base]; }
+
+  T&       back()        { return buf[(pos + buf_size - 1) % buf_size]; }
+  T const& back()  const { return buf[(pos + buf_size - 1) % buf_size]; }
+
+
+  // Iterator
+  //
+  // - forward_iterator_tag because, laziness.
+  //
+  class iterator : public std::iterator<std::input_iterator_tag, T>
+  {
+    T* data;
     std::size_t idx;
-    iterator(int* first, std::size_t idx) : first(first), idx(idx) { }
+  public:
+
+    iterator(T* first, std::size_t idx) : data{first}, idx{idx} { }
     iterator operator++()
     {
-      idx = (idx + 1) % cq::size;
-      return iterator(first, idx);
+      idx = idx + 1;
+      return {data, idx};
     }
     iterator operator++(int)
     {
       auto tmp = idx;
       operator++();
-      return iterator(first, tmp);
+      return {data, tmp};
     }
-    int& operator*() { return *(first + idx); }
+    T& operator*() { return *(data + idx % buf_size); }
   
-    bool operator==(iterator const& other) const { return other.idx == idx; }
-    bool operator!=(iterator const& other) const { return other.idx != idx; }
+    bool operator!=(iterator const& x) const
+    { return x.data != nullptr && data != nullptr && x.idx != idx; }
+    
   };
-
   
-  iterator begin() { return iterator(&buf[base], base); }
-  iterator end() { return iterator(&buf[pos], pos); }
+  iterator begin() { return {buf.data(), base}; }
+  iterator end()
+  {
+    if (base == pos && !move_base)
+      return {nullptr, 0};
+    else
+      return {buf.data(), base + size()};
+  }
   
-  typedef iterator iterator;
 };
 
 

@@ -75,6 +75,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		222C862218C9296200706989 /* cq.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cq.hh; sourceTree = "<group>"; };
 		2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = prettyprint.hpp; sourceTree = "<group>"; };
 		228AC8DD18C7942E00B34515 /* min_window.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = min_window.cc; sourceTree = "<group>"; };
 		228AC8DF18C798D600B34515 /* algo.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algo.hh; sourceTree = "<group>"; };
@@ -135,6 +136,7 @@
 		22B5BA8518C4CE42002443A7 /* algorithms */ = {
 			isa = PBXGroup;
 			children = (
+				222C862218C9296200706989 /* cq.hh */,
 				228AC8DF18C798D600B34515 /* algo.hh */,
 				228AC8E018C7991200B34515 /* min_window.h */,
 				228AC8DD18C7942E00B34515 /* min_window.cc */,

@@ -9,10 +9,8 @@ using std::begin; using std::end; using std::cout; using std::cerr;
 #include "prettyprint.hpp"
 #include "timer.hh"
 
-namespace  {
-  
-  
-  
+namespace
+{
   const std::size_t k = 10;
   const int N = 100;
   const int T = 10000;

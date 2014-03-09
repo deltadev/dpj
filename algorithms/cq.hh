@@ -1,122 +1,135 @@
 #ifndef _DPJ_CQ_HH_
 #define _DPJ_CQ_HH_
 
-#include <vector>
+#include <array>
 #include <iterator>
 
-
-template <typename T, std::size_t buf_size = 16>
+/// circular queue of length that allows an eficient mod operation.
+//
+template <typename T, uint32_t exponent = 6>
 class cq
 {
-  std::array<T, buf_size> buf{{T{}}};
-
-  std::size_t base = 0;
-  std::size_t pos  = 0;
-  bool move_base = false; // Tells us whether the buffer is full.
+  static constexpr uint32_t buf_size = 1 << exponent;
+  static constexpr uint32_t mod_mask = (buf_size - 1);
+  
+  std::array<T, buf_size> buf;
+  
+  uint32_t base = 0;
+  uint32_t pos  = 0;
+  bool full_    = false;
   
 public:
+
   cq() { }
-
-  // Queue interface.
-  //
-  //   A pre-condition and post-condition of operations is
-  //
-  //     * base \in [0, size)
-  //     * pos  \in [0, size)
-  //
-  //     * The current range of elements is:
-  //
-  //       a) [base, pos)
-  //       b) [base, size) \union [0, pos)
-  //
-  //       The case base == pos needs to be dealt with differently
-  //       in each of these cases when calling push_back.
-  //
-  //     * buf[pos] is the next available put slot.
-  //
-  void push_back(T i)
+  
+  template<typename It>
+  cq(It first, It last)
   {
-    if (move_base)
-      base = (base + 1) % buf_size;
-    
-    buf[pos] = i;
-    pos = (pos + 1) % buf_size;
-
-    if (pos == base) // We just caught up with ourselves.
-      move_base = true;
-  }
-  T pop_front()
-  {
-    T r = buf[base];
-    base = (base + 1) % buf_size;
-    move_base = false;
-    return r;
-  }
-  T pop_back()
-  {
-    pos = (pos + buf_size - 1) % buf_size;
-    move_base = false;
-    return buf[pos];
+    while(first++ != last)
+      push_back(*first);
   }
   
-  std::size_t size()
+  void push_back(T const& i)
   {
-    if (pos == base && move_base == false)
-      return 0;
+    buf[pos] = i;
+    pos = (pos + 1) & mod_mask;
+    
+    if (full_)
+      base = (base + 1) & mod_mask;
+    
+    if (pos == base) // We just caught up with ourselves.
+      full_ = true;
+  }
+  void push_back(T&& i)
+  {
+    buf[pos] = std::move(i);
+    pos = (pos + 1) & mod_mask;
+    
+    if (full_)
+      base = (base + 1) & mod_mask;
+    
+    if (pos == base)
+      full_ = true;
+  }
+  void pop_front()
+  {
+    full_ = false;
+    base = (base + 1) & mod_mask;
+  }
+  void pop_back()
+  {
+    full_ = false;
+    pos = (pos - 1) & mod_mask;
+  }
+  
+  int size() const
+  {
+    if (pos == base)
+      return full_ ? buf_size : 0;
     else
       return pos > base ? pos - base : buf_size - base + pos;
   }
+
+  void clear() { base = pos = 0; full_ = false; }
   
-  
-  // Element access
-  //
+  bool full() { return full_; }
+  bool empty() { return pos == base && !full(); }
+
   T&       front()       { return buf[base]; }
   T const& front() const { return buf[base]; }
 
-  T&       back()        { return buf[(pos + buf_size - 1) % buf_size]; }
-  T const& back()  const { return buf[(pos + buf_size - 1) % buf_size]; }
+  T&       back()        { return buf[(pos - 1) & mod_mask]; }
+  T const& back()  const { return buf[(pos - 1) & mod_mask]; }
 
-
-  // Iterator
-  //
-  // - forward_iterator_tag because, laziness.
+  // forward_iterator_tag, because laziness. It's main use is to
+  // allow printin the queue in a for( : ) loop.
   //
   class iterator : public std::iterator<std::input_iterator_tag, T>
   {
-    T* data;
-    std::size_t idx;
+    T const* data;
+    uint32_t idx;
   public:
 
-    iterator(T* first, std::size_t idx) : data{first}, idx{idx} { }
+    iterator(T const* first, uint32_t idx) : data{first}, idx{idx} { }
     iterator operator++()
     {
       idx = idx + 1;
-      return {data, idx};
+      return *this;
     }
     iterator operator++(int)
     {
-      auto tmp = idx;
+      auto tmp = *this;
       operator++();
-      return {data, tmp};
+      return tmp;
     }
-    T& operator*() { return *(data + idx % buf_size); }
+    T const& operator*() { return *(data + (idx & mod_mask)); }
   
+    // Continues iteration so long as the iterators are valid and not equal.
     bool operator!=(iterator const& x) const
     { return x.data != nullptr && data != nullptr && x.idx != idx; }
-    
   };
   
-  iterator begin() { return {buf.data(), base}; }
-  iterator end()
+  iterator begin() const
   {
-    if (base == pos && !move_base)
+    if (base == pos && !full_)
+      return {nullptr, 0};
+    else
+      return {buf.data(), base};
+  }
+  iterator end() const
+  {
+    if (base == pos && !full_)
       return {nullptr, 0};
     else
       return {buf.data(), base + size()};
   }
-  
 };
 
-
+template<typename T, uint32_t size>
+std::ostream& operator<<(std::ostream& os, cq<T, size> const& q)
+{
+  for (auto const& el : q) os << el << ' ';
+  return os;
+}
 
 #endif /* _DPJ_CQ_HH_ */

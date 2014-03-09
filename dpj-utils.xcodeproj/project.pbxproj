@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2274FC7F16FA8CD6001FE84B /* prettyprint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */; };
-		228AC8DE18C7942E00B34515 /* min_window.cc in Sources */ = {isa = PBXBuildFile; fileRef = 228AC8DD18C7942E00B34515 /* min_window.cc */; };
 		22B5BA7618C4CE2F002443A7 /* hex_b64_convert.cc in Sources */ = {isa = PBXBuildFile; fileRef = 22B5BA6C18C4CE2F002443A7 /* hex_b64_convert.cc */; };
 		22B5BA7718C4CE2F002443A7 /* hex_b64_convert.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA6D18C4CE2F002443A7 /* hex_b64_convert.h */; };
 		22B5BA7818C4CE2F002443A7 /* histogram.hh in Headers */ = {isa = PBXBuildFile; fileRef = 22B5BA6E18C4CE2F002443A7 /* histogram.hh */; };
@@ -77,9 +76,7 @@
 /* Begin PBXFileReference section */
 		222C862218C9296200706989 /* cq.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cq.hh; sourceTree = "<group>"; };
 		2274FC7E16FA8CD6001FE84B /* prettyprint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = prettyprint.hpp; sourceTree = "<group>"; };
-		228AC8DD18C7942E00B34515 /* min_window.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = min_window.cc; sourceTree = "<group>"; };
 		228AC8DF18C798D600B34515 /* algo.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = algo.hh; sourceTree = "<group>"; };
-		228AC8E018C7991200B34515 /* min_window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = min_window.h; sourceTree = "<group>"; };
 		22B5BA6C18C4CE2F002443A7 /* hex_b64_convert.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hex_b64_convert.cc; sourceTree = "<group>"; };
 		22B5BA6D18C4CE2F002443A7 /* hex_b64_convert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hex_b64_convert.h; sourceTree = "<group>"; };
 		22B5BA6E18C4CE2F002443A7 /* histogram.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = histogram.hh; sourceTree = "<group>"; };
@@ -138,8 +135,6 @@
 			children = (
 				222C862218C9296200706989 /* cq.hh */,
 				228AC8DF18C798D600B34515 /* algo.hh */,
-				228AC8E018C7991200B34515 /* min_window.h */,
-				228AC8DD18C7942E00B34515 /* min_window.cc */,
 				22B5BA9518C78A1F002443A7 /* instrumented.cpp */,
 				22B5BA9618C78A1F002443A7 /* instrumented.h */,
 				22B5BA9118C78781002443A7 /* main.cc */,
@@ -303,7 +298,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				228AC8DE18C7942E00B34515 /* min_window.cc in Sources */,
 				22B5BA9318C78781002443A7 /* main.cc in Sources */,
 				22B5BA9018C78555002443A7 /* heaps.cc in Sources */,
 				22B5BA9718C78A1F002443A7 /* instrumented.cpp in Sources */,

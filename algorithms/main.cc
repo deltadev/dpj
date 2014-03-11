@@ -8,6 +8,8 @@
 
 #include "instrumented.h"
 
+#include "rmq.hh"
+
 #include "cq.hh"
 #include "timer.hh"
 
@@ -23,6 +25,7 @@ void printf_test_cq();
 
 using int_t = int;
 
+std::vector<int_t> test_rmq(std::vector<int_t> input, int const w, int const num_tests);
 std::vector<int_t> test_dequeue_func(std::vector<int_t> input, int const w, int const num_tests);
 std::vector<int_t> test_queue_func(std::vector<int_t> input, int const w, int const num_tests);
 std::vector<int_t> test_simple(std::vector<int_t> input, int const w, int const num_tests);
@@ -36,7 +39,7 @@ int main(int argc, char *argv[])
   std::mt19937 rng{1};//(static_cast<int>(clock()));
   
   int const n = 100;
-  int const w = 50;
+  int const w = 10;
   
   std::cout << "testing sequences of length: " << n << " and window: " << w << '\n';
   int const num_tests = 1000000;
@@ -54,13 +57,38 @@ int main(int argc, char *argv[])
   if (output != output1)
     std::cerr << "Error: output mismatch!\n";
   
+
   output1 = test_simple(ints, w, num_tests);
   
   if (output != output1)
     std::cerr << "Error: output mismatch!\n";
+
+  output = test_rmq(ints, w, num_tests);
+ 
+  if (output != output1)
+    std::cerr << "Error: output mismatch!\n";
+  
   //instrumented_base::print();
   
   return 0;
+}
+std::vector<int_t> test_rmq(std::vector<int_t> input,
+                            int const w, int const num_tests)
+{
+  std::vector<int_t> output(input.size());
+  
+  dpj::timer_ms t{"rmq"};
+  reduced_mins<int_t> reduced(begin(input), begin(output));
+  for (int i = 0; i < num_tests; ++i)
+  {
+    auto it = output.begin();
+    for (int_t j = 0; j < input.size() - w + 1; ++j, ++it)
+      *it = reduced.rmq(begin(input), j, j + w);
+  }
+  
+  t.stop();
+  
+  return output;
 }
 
 std::vector<int_t> test_simple(std::vector<int_t> input,

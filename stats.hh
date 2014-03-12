@@ -1,5 +1,5 @@
-#ifndef _STATS_H_
-#define _STATS_H_
+#ifndef DPJ_STATS_H_
+#define DPJ_STATS_H_
 
 #include <vector>
 #include <cmath>
@@ -61,4 +61,4 @@ namespace dpj
 }
 
 
-#endif /* _STATS_H_ */
+#endif /* DPJ_STATS_H_ */

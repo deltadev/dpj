@@ -1,5 +1,5 @@
-#ifndef _DPJ_CQ_HH_
-#define _DPJ_CQ_HH_
+#ifndef DPJ_CQ_HH_
+#define DPJ_CQ_HH_
 
 #include <array>
 #include <iterator>
@@ -132,4 +132,4 @@ std::ostream& operator<<(std::ostream& os, cq<T, size> const& q)
   return os;
 }
 
-#endif /* _DPJ_CQ_HH_ */
+#endif /* DPJ_CQ_HH_ */

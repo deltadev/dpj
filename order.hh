@@ -1,5 +1,5 @@
-#ifndef _ORDER_H_
-#define _ORDER_H_
+#ifndef DPJ_ORDER_H_
+#define DPJ_ORDER_H_
 
 #include <vector>
 #include <algorithm>
@@ -63,4 +63,4 @@ namespace dpj
   }
 }
 
-#endif /* _ORDER_H_ */
+#endif /* DPJ_ORDER_H_ */

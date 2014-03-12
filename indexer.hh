@@ -1,5 +1,5 @@
-#ifndef _INDEXER_H_
-#define _INDEXER_H_
+#ifndef DPJ_INDEXER_H_
+#define DPJ_INDEXER_H_
 
 #include <iterator>
 
@@ -53,4 +53,4 @@ namespace dpj {
   indexer<T> index(T& t) { return indexer<T>(t); }
 }
 
-#endif /* _INDEXER_H_ */
+#endif /* DPJ_INDEXER_H_ */

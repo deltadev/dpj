@@ -1,5 +1,5 @@
-#ifndef _HISTOGRAM_HH_
-#define _HISTOGRAM_HH_
+#ifndef DPJ_HISTOGRAM_HH_
+#define DPJ_HISTOGRAM_HH_
 
 #include <cmath>
 
@@ -109,4 +109,4 @@ public:
     }
   }
 };
-#endif /* _HISTOGRAM_HH_ */
+#endif /* DPJ_HISTOGRAM_HH_ */

@@ -1,5 +1,7 @@
-#ifndef INSTRUMENTED_H
-#define INSTRUMENTED_H
+#ifndef DPJ_INSTRUMENTED_H
+#define DPJ_INSTRUMENTED_H
+
+/* Taken from Stepanov's components course.*/
 
 #include <cstddef>
 #include <iostream>
@@ -72,8 +74,6 @@ struct instrumented :  instrumented_base
     return os << x.value;
   }
 };
-
-
 
 #endif
 

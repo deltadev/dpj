@@ -1,5 +1,5 @@
-#ifndef _DPJ_UTILS_H_
-#define _DPJ_UTILS_H_
+#ifndef DPJ_UTILS_H_
+#define DPJ_UTILS_H_
 
 #include <string>
 #include <vector>
@@ -32,4 +32,4 @@ std::string readFasta(std::string fileName);
 
 #include "dpj_utils.hh"
 
-#endif /* _DPJ_UTILS_H_ */
+#endif /* DPJ_UTILS_H_ */

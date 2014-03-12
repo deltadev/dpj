@@ -1,6 +1,6 @@
-#ifndef _DPJ_HEAPS_
-#define _DPJ_HEAPS_
+#ifndef DPJ_HEAPS_
+#define DPJ_HEAPS_
 
 void do_it();
 
-#endif /* _DPJ_HEAPS_ */
+#endif /* DPJ_HEAPS_ */

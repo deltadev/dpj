@@ -1,5 +1,5 @@
-#ifndef _DPJ_RMQ_HH_
-#define _DPJ_RMQ_HH_
+#ifndef DPJ_RMQ_HH_
+#define DPJ_RMQ_HH_
 
 #include <vector>
 
@@ -62,4 +62,4 @@ public:
 
 
 
-#endif /* _DPJ_RMQ_HH_ */
+#endif /* DPJ_RMQ_HH_ */

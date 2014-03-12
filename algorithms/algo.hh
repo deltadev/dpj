@@ -1,5 +1,5 @@
-#ifndef _DPJ_ALGOS_
-#define _DPJ_ALGOS_
+#ifndef DPJ_ALGOS_
+#define DPJ_ALGOS_
 
 #include <iterator>
 
@@ -78,4 +78,4 @@ void min_window_queue(Queue& q, Int w, It first1, It const last1, It first2)
 
 
 
-#endif /* _DPJ_ALGOS_ */
+#endif /* DPJ_ALGOS_ */

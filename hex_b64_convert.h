@@ -1,5 +1,5 @@
-#ifndef _HEX_B64_CONVERT_H_
-#define _HEX_B64_CONVERT_H_
+#ifndef DPJ_HEX_B64_CONVERT_H_
+#define DPJ_HEX_B64_CONVERT_H_
 
 #include <vector>
 #include <string>
@@ -14,4 +14,4 @@ std::string bytes_to_hex(std::vector<uint8_t>::const_iterator b,
 std::string bytes_to_b64(std::vector<uint8_t> const& bytes);
 
 
-#endif /* _HEX_B64_CONVERT_H_ */
+#endif /* DPJ_HEX_B64_CONVERT_H_ */

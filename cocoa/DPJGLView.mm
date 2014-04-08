@@ -2,9 +2,6 @@
 
 #import <OpenGL/gl3.h>
 
-#include "renderer.hh"
-
-
 @interface NSObject (DJGLSupport)
 - (void)delegateKeyDown:(NSEvent*)theEvent;
 

@@ -18,10 +18,16 @@ namespace dpj
   protected:
     char* b_, * e_, * c_;
   public:
+
+    // Constructor to init with data.
+    //
     astreambuf(char* b, char* e) : b_{b}, e_{e}, c_{e}
-    { 
+    {
       setg(b_, b_, e_);
     }
+    
+    void clear() { setg(b_, b_, b_); }
+
     
     int_type underflow()
     {

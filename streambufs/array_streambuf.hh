@@ -1,12 +1,8 @@
 #ifndef DPJ_ARRAY_STREAMBUF_HH_
 #define DPJ_ARRAY_STREAMBUF_HH_
 
-
-
-
-
-
 #include <streambuf>
+#include <array>
 
 namespace dpj 
 {
@@ -58,17 +54,9 @@ namespace dpj
     
     void mark_unget() { c = gptr(); }
     
-    long write(char const* first, char const* last)
-    {
-      auto n = std::min<long>(last - first, avail());
-      std::copy(first, first + n, egptr());
-      update_egptr(n);
-      return n;
-    }
-    
-    char* pubegptr() { return egptr(); }
+    char* pptr() { return egptr(); }
     long avail() { return buf.size() - in_avail(); }
-    void update_egptr(long n) { setg(begin(buf), gptr(), egptr() + n); }
+    void bump_egptr(long n) { setg(begin(buf), gptr(), egptr() + n); }
   };
 }
 

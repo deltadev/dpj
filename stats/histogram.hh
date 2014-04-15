@@ -2,111 +2,113 @@
 #define DPJ_HISTOGRAM_HH_
 
 #include <cmath>
+#include <vector>
+#include <algorithm>
 
-struct maybe_is_nan
+namespace dpj
 {
-  template <typename T, typename std::enable_if<std::is_floating_point<T>::value>::type>
-  bool operator()(T f) { return std::isnan(f); }
-  template <typename T>
-  bool operator()(T f) { return false;}
-};
+  using std::begin; using std::end;
 
-template <typename T>
-class Histogram
-{
-  typename std::vector<T> m_data;
-  typename std::vector<double> m_rightHandEndPoints;
-  size_t m_numBins;
-  double m_min, m_max, m_binWidth;
-  std::vector<unsigned> m_counts;
-  
-public:
-  
-  template<typename Iterator>
-  Histogram(Iterator b, Iterator e) : m_data(b, e), m_numBins(10) { }
-  
-  template<typename Container, typename Accessor>
-  Histogram(Container c, Accessor a) : m_numBins(c.size())
+  class histogram_t
   {
-    for (auto const& e : c)
-      m_data.push_back(a(e));
-  }
+  public:
+    std::vector<double> data;
+    std::vector<double> bins; // right hand end points
+    std::vector<int>    counts;
+
+    struct pars
+    {
+      pars() { }
+      pars(bool) : defaults{true} { }
+
+      double min       = 0;
+      double max       = 0;
+      int num_bins     = 50;
+      bool defaults    = false;
+      bool log_counts  = false;
+    };
   
-  void numBins(unsigned numBins) { m_numBins = numBins; }
+    template<typename Iterator>
+    histogram_t(Iterator b, Iterator e) : data{b, e} { }
   
-  double binWidth() const { return m_binWidth; }
-  size_t numBins() const { return m_numBins; }
-  void binData()
-  {
-    if (m_data.empty())
-    {
-      std::cerr << "Error: trying to build histogram with nodata!. Exiting...\n";
-      exit(EXIT_FAILURE);
-    }
-    
-    // Remove any NaNs
-    m_data.erase(std::remove_if(m_data.begin(), m_data.end(), maybe_is_nan()), m_data.end());
-    
-    std::sort(m_data.begin(), m_data.end());
-    m_min = m_data.front();
-    m_max = m_data.back();
-    m_binWidth = (m_max - m_min + m_numBins * std::numeric_limits<double>::epsilon()) / static_cast<double>(m_numBins);
-    
-    m_rightHandEndPoints.push_back(m_min + m_binWidth);
-    for (unsigned i = 1; i < m_numBins; ++i)
-    {
-      m_rightHandEndPoints.push_back(m_rightHandEndPoints.back() + m_binWidth);
-    }
-    //
-    // Main loop over sorted data.
-    //
-    auto it = m_data.begin();
-    auto end = m_data.end();
-    for (auto a : m_rightHandEndPoints)
-    {
-      auto tmp = std::upper_bound(it, end, a);
-      m_counts.push_back((unsigned)std::distance(it, tmp));
-      it = tmp;
-    }
-  }
-  void draw(unsigned rows = 25) const {
-    unsigned max_count = maxCount();
-    std::string grid(rows * numBins(), ' ');
-    for (unsigned idx(0); idx != rows * numBins(); ++idx) {
-      unsigned col = idx % numBins();
-      unsigned row = idx / numBins();
-      if (m_counts[col] * rows / (double)max_count >= rows - row) {
-        grid[idx] = '*';
+    template<typename Container, typename Accessor>
+    histogram_t(Container c, Accessor a)
+      {
+        data.reserve(c.size());
+        for (auto const& e : c)
+          data.emplace_back(a(e));
       }
-    }
-    for (unsigned i(0); i < rows; ++i) {
-      for (unsigned j(0); j < m_numBins; ++j) {
-        std::cout << grid[i * m_numBins + j];
-      }
-      std::cout << '\n';
-    }
     
-  }
-  unsigned maxCount() const { return *std::max_element(m_counts.begin(), m_counts.end());}
+    friend
+    void bin(histogram_t& h, histogram_t::pars pars = true)
+      {
+        if (h.data.empty())
+          std::runtime_error("Error: trying to build histogram with nodata!");
+    
+        // Remove any NaNs
+        auto er = std::remove_if(begin(h.data), begin(h.data), 
+                                 [](double d) { return std::isnan(d); });
+        h.data.erase(er, end(h.data));    
+
+        std::sort(begin(h.data), end(h.data));
+
+        if (pars.defaults == true)
+        {
+          pars.min = h.data.front();
+          pars.max = h.data.back();
+        }    
+
+        double range = pars.max - pars.min;
+        double eps = std::numeric_limits<double>::epsilon();
+        double bin_width = (range + pars.num_bins * eps) / static_cast<double>(pars.num_bins);
+
+        h.bins.push_back(pars.min + bin_width);
+        for (int i = 1; i < pars.num_bins; ++i)
+          h.bins.push_back(h.bins.back() + bin_width);
+
+        // Main loop over sorted data.
+        //
+        auto it = begin(h.data);
+        auto e = end(h.data);
+        for (auto a : h.bins)
+        {
+          auto tmp = std::upper_bound(it, e, a);
+          auto count = std::distance(it, tmp);
+          if (pars.log_counts)
+            h.counts.push_back(::log2(count));
+          else
+            h.counts.push_back(count);
+          it = tmp;
+        }
+      }
+    
+    friend
+    void draw(histogram_t const& h, unsigned rows = 25, std::ostream& os = std::cout)
+      {
+        auto max_count = *std::max_element(begin(h.counts), end(h.counts));
+        auto num_bins = h.bins.size();
+        std::string grid(rows * h.bins.size(), ' ');
+        for (int idx =0; idx != rows * num_bins; ++idx) 
+        {
+          int col = idx % num_bins;
+          int row = idx / num_bins;
+          if (h.counts[col] * rows / max_count >= rows - row)
+            grid[idx] = '*';
+        }
+        for (int i = 0; i < rows; ++i) 
+        {
+          for (int j = 0; j < num_bins; ++j)
+            os << grid[i * num_bins + j];
+          os << '\n';
+        }   
+      }
   
-  std::vector<unsigned> const& counts() const { return m_counts; }
-  
-  std::vector<double> const& endPoints() const {return m_rightHandEndPoints; }
-  
-  double max() const { return m_max; }
-  double min() const { return m_min; }
-  
-  void summary(std::ostream& os = std::cout) const
-  {
-    os << "min value: " << m_min << '\n';
-    os << "max value: " << m_max << '\n';
-    os << "num bins : " << m_numBins << '\n';
-    os << "bin width: " << m_binWidth << '\n';
-    os << "rightHandEndpoint count\n";
-    for (unsigned i = 0; i < m_rightHandEndPoints.size(); ++i)
-    {
-      os << m_rightHandEndPoints[i] << ' ' << m_counts[i] << '\n';
-    }
-  }
-};
+    friend
+    void print(histogram_t const& h, std::ostream& os = std::cout)
+      {
+        for (unsigned i = 0; i < h.bins.size(); ++i)
+          os << h.bins[i] << ' ' << h.counts[i] << '\n';
+      }
+  };
+}
 #endif /* DPJ_HISTOGRAM_HH_ */

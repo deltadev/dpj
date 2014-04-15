@@ -117,16 +117,6 @@ bool orderTest()
   return pass;
 }
 
-bool histogramTest()
-{
-  std::vector<double> rs{0, 1,2,3,4,5.0000000};
-  Histogram<double> h(rs.begin(), rs.end());
-  h.binData();
-  h.draw();
-  h.summary();
-  return true;
-}
-
 bool pwmTest()
 {
   std::istringstream ss;
@@ -164,26 +154,6 @@ std::array<double, 25> y{{
     0.51795227, 0.00341642, 0.17557971, 0.8360058 , 0.98655175}
 };
 
-bool covariance_test() {
-  double res = dpj::covariance(x.begin(), x.end(), y.begin());
-  double actual = -0.03959601;
-  std::cout << actual << ", " << res << '\n';
-  return std::abs(res - actual) <  0.0000001;
-}
-
-bool pearson_cc_test() {
-  double res = dpj::pearsons_cc(x.begin(), x.end(), y.begin());
-  double actual = -0.38256335;
-  std::cout << actual << ", " << res << '\n';
-  return std::abs(res - actual) <  0.0000001;
-}
-
-bool spearman_cc_test() {
-  double res = dpj::spearmans_cc(x.begin(), x.end(), y.begin());
-  double actual = -0.34923076923076929;
-  std::cout << actual << ", " << res << '\n';
-  return std::abs(res - actual) <  0.0000001;
-}
 
 
 

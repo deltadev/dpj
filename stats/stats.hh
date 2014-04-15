@@ -4,15 +4,19 @@
 #include <vector>
 #include <cmath>
 
+#include "order.hh"
+
 namespace dpj 
 {  
   template <typename Iter1, typename Iter2>
-  double covariance(Iter1 first1, Iter1 last1, Iter2 first2) {
+  double covariance(Iter1 first1, Iter1 last1, Iter2 first2)
+  {
     double n = std::distance(first1, last1);
     double s_x = 0;
     double s_y = 0;
     double s_xy = 0;
-    while (first1 != last1) {
+    while (first1 != last1)
+    {
       s_x += *first1;
       s_y += *first2;
       s_xy += *first1 * *first2;
@@ -24,14 +28,16 @@ namespace dpj
   }
 
   template <typename Iter1, typename Iter2>
-  double pearsons_cc(Iter1 first1, Iter1 last1, Iter2 first2) {
+  double pearsons_cc(Iter1 first1, Iter1 last1, Iter2 first2)
+  {
     double n = std::distance(first1, last1);
     double s_x = 0;
     double s_y = 0;
     double s_xy = 0;
     double s_xx = 0;
     double s_yy = 0;
-    while (first1 != last1) {
+    while (first1 != last1)
+    {
       s_x += *first1;
       s_y += *first2;
       s_xy += *first1 * *first2;
@@ -47,7 +53,8 @@ namespace dpj
   }
   
   template <typename Iter1, typename Iter2>
-  double spearmans_cc(Iter1 first1, Iter1 last1, Iter2 first2) {
+  double spearmans_cc(Iter1 first1, Iter1 last1, Iter2 first2)
+  {
     size_t n_elems = std::distance(first1, last1);
     std::vector<int> ranks_1(n_elems);
     std::vector<int> ranks_2(n_elems);

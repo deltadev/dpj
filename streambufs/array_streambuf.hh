@@ -32,7 +32,7 @@ namespace dpj
 
     // underflow()
     //
-    // This method will be called before and extraction fails.
+    // This method will be called before an extraction fails.
     //
     // We need to:
     //

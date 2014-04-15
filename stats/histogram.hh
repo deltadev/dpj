@@ -78,7 +78,7 @@ namespace dpj
       {
         auto tmp = std::upper_bound(it, e, a);
         auto count = std::distance(it, tmp);
-        if (pars.log_counts)
+        if (pars.log_counts && count > 0)
           h.counts.push_back(::log2(count));
         else
           h.counts.push_back(count);

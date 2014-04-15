@@ -5,6 +5,8 @@
 
 #include <cassert>
 
+#include <memory>
+
 #include <streambuf>
 #include <istream>
 #include <ostream>

@@ -44,17 +44,18 @@ namespace dpj
         data.emplace_back(a(e));
     }
     
+    
     friend
     void bin(histogram_t& h, histogram_t::pars pars = true)
     {
       if (h.data.empty())
-        std::runtime_error("Error: trying to build histogram with nodata!");
+        std::runtime_error("Error: trying to build histogram with no data!");
       
       // Remove any NaNs
       auto er = std::remove_if(begin(h.data), end(h.data), [](double d) { return std::isnan(d); });
       h.data.erase(er, end(h.data));
-      
-      std::sort(begin(h.data), end(h.data));
+
+      std::sort(begin(h.data), end(h.data));      
       
       if (pars.defaults == true)
       {
@@ -78,14 +79,16 @@ namespace dpj
       {
         auto tmp = std::upper_bound(it, e, a);
         auto count = std::distance(it, tmp);
-        if (pars.log_counts && count > 0)
-          h.counts.push_back(::log2(count));
+        if (pars.log_counts)
+          h.counts.push_back(::log2(count)); // maybe, -std::numeric_limits<double>::infinity()
         else
           h.counts.push_back(count);
         it = tmp;
       }
     }
-    
+
+    // Does this work with -inf values for counts?
+    //
     friend
     void draw(histogram_t const& h, unsigned rows = 25, std::ostream& os = std::cout)
     {
@@ -96,7 +99,9 @@ namespace dpj
       {
         int col = idx % num_bins;
         int row = idx / num_bins;
-        if (h.counts[col] * rows / max_count >= rows - row)
+        if (h.counts[col] == -std::numeric_limits<double>::infinity())
+          grid[idx] = '_';
+        else if (h.counts[col] * rows / max_count >= rows - row)
           grid[idx] = '*';
       }
       for (int i = 0; i < rows; ++i)

@@ -67,6 +67,41 @@ namespace
     return true;
   }
   
+  bool histogram_test_end_points()
+  {
+    std::vector<double> data{1,1,1,5,5,5,8,8,8};
+    
+    dpj::histogram_t h(begin(data), end(data));
+    dpj::histogram_t::pars pars;
+    pars.min = 0;
+    pars.max = 8;
+    pars.num_bins = 3;
+    bin(h, pars);
+    draw(h);
+    print(h);
+    
+    return true;
+  }
+  
+  bool histogram_test_log_counts()
+  {
+    std::vector<double> data{1,1,1,5,5,5,0,0,8,8,8};
+    
+    dpj::histogram_t h(begin(data), end(data));
+    dpj::histogram_t::pars pars;
+    pars.min = 0;
+    pars.max = 20;
+    pars.num_bins = 3;
+    pars.log_counts = true;
+    bin(h, pars);
+    draw(h);
+    print(h);
+    
+    return true;
+  };
+
+  
+  
   std::array<double, 25> x
   {
     {
@@ -90,14 +125,16 @@ namespace
 }
 int main()
 {
-  std::map<std::string, std::function<bool()>> tests
+  std::vector<std::pair<std::string, std::function<bool()>>> tests
   {
-    {"histogram_test_normal", histogram_test_normal},
-    {"histogram_test_uniform", histogram_test_uniform},
-    {"histogram_test_poisson", histogram_test_poisson},
     {"covariance_test", covariance_test},
     {"pearson_cc_test", pearson_cc_test},
     {"spearman_cc_test", spearman_cc_test},
+    {"histogram_test_normal", histogram_test_normal},
+    {"histogram_test_uniform", histogram_test_uniform},
+    {"histogram_test_poisson", histogram_test_poisson},
+    {"histogram_test_end_points", histogram_test_end_points},
+    {"histogram_test_log_counts", histogram_test_log_counts},
   };
   
   

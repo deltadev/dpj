@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:streambufs/streambufs/../../stats/stats/stats.xcodeproj">
+      location = "self:streambufs.xcodeproj">
    </FileRef>
 </Workspace>

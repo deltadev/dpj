@@ -1,5 +1,5 @@
-#ifndef _ZSTREAMBUF_HH_
-#define _ZSTREAMBUF_HH_
+#ifndef DPJ_ZSTREAMBUF_HH_
+#define DPJ_ZSTREAMBUF_HH_
 
 #include <zlib.h>
 
@@ -12,9 +12,11 @@
 #include <ostream>
 #include <fstream>
 
+
 #include <array>
 
-namespace dpj {
+namespace dpj
+{
   
   /// std::streambuf wrapper around zlib, deflate and gzip streams.
   //
@@ -419,4 +421,4 @@ namespace dpj {
 
 }
 
-#endif /* _ZSTREAMBUF_HH_ */
+#endif /* DPJ_ZSTREAMBUF_HH_ */

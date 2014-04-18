@@ -14,9 +14,10 @@ namespace dpj
   //   loss of data.
   //
   //
+
   class array_streambuf : public std::streambuf
   {
-    std::array<char, 4096> buf;
+    std::array<char, 1024 * 4> buf;
     char* c;
   public:
     array_streambuf()
@@ -56,7 +57,8 @@ namespace dpj
     
     char* pptr() { return egptr(); }
     long avail() { return buf.size() - in_avail(); }
-    void bump_egptr(long n) { setg(begin(buf), gptr(), egptr() + n); }
+    void bump_egptr(long n)
+    { setg(begin(buf), gptr(), egptr() + n); }
   };
 }
 

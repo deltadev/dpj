@@ -5,20 +5,20 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>8F818C33-5FF4-45B4-B295-7D8CC4DA5482</string>
+	<string>FC516090-A1D4-4AFC-8AA3-A93D6A9FC7E4</string>
 	<key>IDESourceControlProjectName</key>
-	<string>dpj</string>
+	<string>streambufs</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>39294ED7-9FDB-4AB9-BC7E-3921C4B7EAA5</key>
 		<string>ssh://github.com/deltadev/dpj-utils.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>dpj.xcworkspace</string>
+	<string>streambufs/streambufs/streambufs.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>39294ED7-9FDB-4AB9-BC7E-3921C4B7EAA5</key>
-		<string>..</string>
+		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/deltadev/dpj-utils.git</string>

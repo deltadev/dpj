@@ -19,7 +19,7 @@ namespace dpj
   public:
     std::vector<double> data;
     std::vector<double> bins; // right hand end points
-    std::vector<long>   counts;
+    std::vector<double> counts;
     
     struct pars
     {
@@ -78,9 +78,9 @@ namespace dpj
       for (auto a : h.bins)
       {
         auto tmp = std::upper_bound(it, e, a);
-        auto count = std::distance(it, tmp);
+        auto count = static_cast<double>(std::distance(it, tmp));
         if (pars.log_counts)
-          h.counts.push_back(::log2(count)); // maybe, -std::numeric_limits<double>::infinity()
+          h.counts.push_back(::log2(count)); // maybe, -inf
         else
           h.counts.push_back(count);
         it = tmp;
@@ -92,14 +92,17 @@ namespace dpj
     friend
     void draw(histogram_t const& h, unsigned rows = 25, std::ostream& os = std::cout)
     {
+      auto inf = std::numeric_limits<double>::infinity();
+      
       auto max_count = *std::max_element(begin(h.counts), end(h.counts));
       auto num_bins = h.bins.size();
+
       std::string grid(rows * h.bins.size(), ' ');
       for (int idx =0; idx != rows * num_bins; ++idx)
       {
         int col = idx % num_bins;
         int row = idx / num_bins;
-        if (h.counts[col] == -std::numeric_limits<double>::infinity())
+        if (   h.counts[col] == -inf && row == rows - 1)
           grid[idx] = '_';
         else if (h.counts[col] * rows / max_count >= rows - row)
           grid[idx] = '*';

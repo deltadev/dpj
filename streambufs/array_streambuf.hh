@@ -3,6 +3,7 @@
 
 #include <streambuf>
 #include <array>
+#include <cassert>
 
 namespace dpj 
 {
@@ -47,7 +48,11 @@ namespace dpj
         return traits_type::to_int_type(*gptr());
      
       long remain = egptr() - c;
+
+      assert(remain >= 0);
+      
       std::memmove(begin(buf), c, remain);
+
       setg(begin(buf), begin(buf), begin(buf) + remain);
 
       return traits_type::eof();

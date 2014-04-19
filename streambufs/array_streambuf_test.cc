@@ -16,10 +16,6 @@ struct point_t
   { return os << p.x << ' ' << p.y << ' ' << p.z; }
   
   friend
-  std::istream& operator>>(std::istream& is, point_t& p)
-  { return is >> p.x >> p.y >> p.z >> std::ws; }
-  
-  friend
   void println(point_t const& p, std::ostream& os = std::cout)
   { os << p << '\n'; }
   
@@ -31,6 +27,8 @@ struct point_t
   }
 };
 
+
+
 // Reads up to n bytes.
 //
 
@@ -40,8 +38,11 @@ int main(int argc, char *argv[])
 {
   // Firstly we generate a stream of points.
   //
-  std::uniform_real_distribution<float> x{0, 100};
-  std::vector<point_t> points(20);
+  std::uniform_real_distribution<float> x{0, 10};
+  std::vector<point_t> points(10000);
+  
+  auto seed = static_cast<unsigned>(clock());
+  rng.seed(seed);
   
   std::generate(begin(points), end(points),
                 [&]() -> point_t { return {x(rng), x(rng), x(rng)}; });
@@ -69,8 +70,8 @@ int main(int argc, char *argv[])
     it = std::min(tmp + avail, end(bytes));
 
     std::copy(tmp, it, data);
-
-    return avail;
+    //std::cerr << "copying: " << std::string{tmp, it} << '\n';
+    return std::min(avail, std::distance(tmp, it));
   };
   
   dpj::array_streambuf sb;
@@ -97,25 +98,29 @@ int main(int argc, char *argv[])
 
     while (true)
     {
-      auto state_a = (is >> p).fail();
-      auto state_b = (is >> std::ws).fail();
-      if (state_a && state_b)
-        break;
-      
-      points2.push_back(p);
-      std::cerr << "parsed: " << p << '\n';
       sb.mark_unget();
+      bool good = true;
+      good = good && (is >> p.x);
+      good = good && (is >> p.y);
+      good = good && (is >> p.z);
+      good = good && '\n' == is.peek();
+      
+      if (!good)
+        break;
+
+      points2.push_back(p);
+      //std::cerr << "parsed: " << p << '\n';
     }
 
   }
   
   std::cout << "test passed: " << std::boolalpha << (points == points2) << '\n';
   
-  for (auto p: points) println(p);
-  std::cout << "\n\n";
-  
-  for (auto p: points2) println(p);
-  std::cout << "\n\n";
+//  for (auto p: points) println(p);
+//  std::cout << "\n\n";
+//  
+//  for (auto p: points2) println(p);
+//  std::cout << "\n\n";
 
   
   return 0;

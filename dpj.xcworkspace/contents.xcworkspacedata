@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:net/net/net.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:streambufs/streambufs/../../stats/stats/stats.xcodeproj">
    </FileRef>
    <FileRef

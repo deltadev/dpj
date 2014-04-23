@@ -294,7 +294,7 @@ namespace dpj
     hdr.h.hcrc = 0; // no CRC at the mo.
     
     int r = deflateSetHeader(&zs, &hdr.h);
-    if (!r == Z_OK)
+    if (r != Z_OK)
       throw std::runtime_error("zstreambuf: couldn't write gzip header");
     
   }

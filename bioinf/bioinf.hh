@@ -1,11 +1,14 @@
 #ifndef DPJ_BIOINF_HH_
 #define DPJ_BIOINF_HH_
 
+#include <cmath>
+
 #include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 #include <fstream>
+#include <iostream>
 
 
 namespace dpj

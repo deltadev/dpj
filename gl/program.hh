@@ -33,7 +33,7 @@ namespace dpj
       friend
       program_t log(program_t p, GLenum check_type)
       {
-        GLint llength, status;
+        GLint llength = 0, status;
         glGetProgramiv(p.id, GL_INFO_LOG_LENGTH, &llength);
         if (llength > 0)
         {

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "renderer.hh"
+#include "render_context.hh"
 
 namespace dpj
 {
@@ -33,11 +33,11 @@ namespace dpj
       drawable_t& operator=(drawable_t const& x)
       { drawable_t tmp{x}; *this = std::move(tmp); return *this; }
       
-      // void draw(drawable_t const&, renderer const&)
+      // void draw(drawable_t const&, render_context const&)
       //
       //   - calls the type-erased drawable.
       //
-      friend void draw(drawable_t const& x, renderer const& r)
+      friend void draw(drawable_t const& x, render_context const& r)
       { x.self->draw_(r); }
 
       //
@@ -52,7 +52,7 @@ namespace dpj
       {
         virtual ~concept_t() = default;
         virtual concept_t* copy() const = 0;
-        virtual void draw_(renderer const&) const = 0;
+        virtual void draw_(render_context const&) const = 0;
         virtual void update_() = 0;
 
       };
@@ -62,7 +62,7 @@ namespace dpj
       {
         model(T x) : data{std::move(x)} { }
         concept_t* copy() const { return new model{*this}; }
-        void draw_(renderer const& r) const { draw(data, r); }
+        void draw_(render_context const& r) const { draw(data, r); }
         void update_() { update(data); }
         T data;
       };

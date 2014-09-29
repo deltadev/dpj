@@ -5,7 +5,7 @@
 
 #include <memory>
 
-#include "renderer.hh"
+#include "render_context.hh"
 
 
 
@@ -23,7 +23,7 @@
 {
 #ifdef __cplusplus
   @public
-    std::unique_ptr<dpj::gl::renderer> renderer;
+    std::unique_ptr<dpj::gl::render_context> render_context;
 #endif
 }
 

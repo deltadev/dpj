@@ -1,5 +1,5 @@
-#ifndef DPJ_RENDERER_HH_
-#define DPJ_RENDERER_HH_
+#ifndef DPJ_RENDER_CONTEXT_HH_
+#define DPJ_RENDER_CONTEXT_HH_
 
 #include <cmath>
 #include <OpenGL/gl3.h>
@@ -12,17 +12,22 @@ namespace dpj
   {
     const double PI = std::atan(1) * 4;
     
-    class renderer
+    class render_context
     {
       
     public:
+
+      // This can be used for locking.
+      //
+      CGLContextObj cgl_context;
+      
       transform t;
       
       struct angle { float x, y, z; } angle;
       struct view { float near, far, fov; } view;
       struct offset { float x, y, z; } offset;
       
-      renderer() : angle{0, 0, 0}, view{0.01, 1, 45}, offset{0, 0, 0}
+      render_context() : angle{0, 0, 0}, view{0.01, 1, 45}, offset{0, 0, 0}
       {
         GLint sz = 0;
         glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &sz);
@@ -56,4 +61,4 @@ namespace dpj
     
   }
 }
-#endif /* DPJ_RENDERER_HH_ */
+#endif /* DPJ_RENDER_CONTEXT_HH_ */

@@ -22,10 +22,11 @@ namespace dpj
                      GL_STATIC_DRAW);
         return b;
       }
-
+      
       friend
       void destroy(buffer_t b) { glDeleteBuffers(1, &b.id); }
     };
+    
   }
 }
 

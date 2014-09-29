@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>085F8E03-2038-4990-9A19-645064E00EA9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>logger</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7489FDD73721E6300747AEE84B6123B44B8D1747</key>
+		<string>bitbucket.org:deltadev/logger.git</string>
+		<key>E48FD31F76B16D3280C06FC26F69E039AE4C480F</key>
+		<string>github.com:deltadev/dpj.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>logger.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7489FDD73721E6300747AEE84B6123B44B8D1747</key>
+		<string>../..</string>
+		<key>E48FD31F76B16D3280C06FC26F69E039AE4C480F</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>bitbucket.org:deltadev/logger.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7489FDD73721E6300747AEE84B6123B44B8D1747</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E48FD31F76B16D3280C06FC26F69E039AE4C480F</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7489FDD73721E6300747AEE84B6123B44B8D1747</string>
+			<key>IDESourceControlWCCName</key>
+			<string>logger</string>
+		</dict>
+	</array>
+</dict>
+</plist>
